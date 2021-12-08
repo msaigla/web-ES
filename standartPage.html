@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Эвольвектор Studio</title>
+
+    <link rel="stylesheet" href="assets/css/jquery-linedtextarea.css">
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/leftMenu.css?ver=1.0">
+
+
+    <script src="src/jquery-3.6.0.min.js"></script>
+    <script src="src/hogan.js/hogan-3.0.2.min.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- <script src="assets/js/frame/common.js"></script> -->
+    <script src="assets/js/leftMenu.js?ver=1.0"></script>
+    <script src="assets/js/jquery-linedtextarea.js"></script>
+</head>
+<body>
+<div class="app">
+    <div class="row content" style="height: calc(100vh); margin: 0;">
+        <div class="left-menu col" style="height: 100%;"></div>
+        <div class="col" style="width: calc(100vh-30px);">
+            <div class="row" style="padding-bottom: 10px">
+                <div class="col" style="text-align: left;">
+                    <div class="btn-group" role="group" aria-label="left">
+                        <button class="btn btn-success" onclick="showBlockly()" data-toggle="tooltip" data-placement="top"
+                                title="Программирование блоками" alt="Программирование блоками">
+                            <i class="fas fa-cubes"></i>
+                        </button>
+                        <span class="input-group-text">Система Вертор Стандарт</span>
+                        <button class="btn btn-warning" onclick="showCodeArduino()" data-toggle="tooltip" data-placement="top"
+                                title="Результат для Arduino IDE" alt="Результат в С++">
+                            <i class="fas fa-code"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="col" style="text-align: center;">
+                    <div class="btn-group" role="group" aria-label="center">
+                        <button class="btn btn-primary" onclick="downloadLibrary()" data-toggle="tooltip" data-placement="top"
+                                title="Скачать библиотеки для классик" alt="Скачать библиотеки для классик">
+                            <i class="fas fa-file-archive"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="col" style="text-align: right;">
+                    <div class="btn-group" role="group" aria-label="right">
+                        <button class="btn btn-danger"
+                                onclick="discard()"
+                                data-toggle="tooltip"
+                                data-placement="top"
+                                title="Очистить">
+                            <i class="fas fa-eraser"></i>
+                        </button>
+                        <button class="btn btn-info"
+                                onclick="saveCode()"
+                                data-toggle="tooltip"
+                                data-placement="top"
+                                title="Сохранить для Arduino IDE">
+                            <i class="fas fa-file-download"></i>
+                        </button>
+                        <button class="btn btn-info"
+                                onclick="save()"
+                                data-toggle="tooltip"
+                                data-placement="top"
+                                title="Сохранить">
+                            <i class="fas fa-save"></i>
+                        </button>
+                        <button class="btn btn-info"
+                                id="fakeload"
+                                data-toggle="tooltip"
+                                data-placement="top"
+                                title="Загрузить">
+                            <i class="fas fa-upload"></i>
+                        </button>
+                        <input type="file" id="load" style="display: none;"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="padding-bottom: 10px; height: calc(100vh - 48px)">
+                <div class="col">
+                <div id="blocklyArea" style="display: block;"></div>
+                <div id="blocklyDiv" style="position: absolute; display:block; z-index: 2; left: 48px"></div>
+                <div id="codeArduino" style="height: calc(100vh - 60px); display:none;"></div>
+                </div>
+            </div>
+         </div>
+    </div>
+</div>
+<xml id="toolbox" style="display: none">
+    <category name="Логика" colour="#ffa500" expanded="true">
+        <block type="controls_if" colour="#ffa500"></block>
+        <block type="logic_compare" colour="#ffa500"></block>
+        <block type="logic_operation"></block>
+        <block type="logic_negate"></block>
+        <block type="logic_boolean"></block>
+        <block type="logic_ternary"></block>
+    </category>
+    <category name="Циклы" colour="#317f43">
+        <block type="controls_repeat_ext">
+            <value name="TIMES">
+                <block type="math_number">
+                    <field name="NUM">10</field>
+                </block>
+            </value>
+        </block>
+        <block type="controls_whileUntil"></block>
+        <block type="loops_break"></block>
+    </category>
+    <category name="Математика" colour="230">
+        <block type="math_number">
+            <field name="NUM">
+            </field>
+        </block>
+        <block type="math_arithmetic"></block>
+        <block type="math_single"></block>
+        <block type="math_trig"></block>
+        <block type="math_modulo"></block>
+        <block type="math_whole_part_division"></block>
+        <block type="math_increment_and_decrement"></block>
+        <block type="math_one_action"></block>
+        <block type="math_random"></block>
+        <block type="math_round"></block>
+        <block type="math_number_property"></block>
+        <block type="math_boolean_in_numeric"></block>
+    </category>
+    <category name="Переменные" custom="CREATE_TYPED_VARIABLE" colour="%{BKY_VARIABLES_HUE}"></category>
+    <category name="Текст" colour="%{BKY_TEXTS_HUE}">
+        <block type="text"></block>
+        <block type="text_length"></block>
+        <block type="text_equals"></block>
+        <block type="text_subString"></block>
+    </category>
+    <category name="Функции" custom="PROCEDURE" colour="%{BKY_PROCEDURES_HUE}"></category>
+    <category name="Разное" colour="#a5995b">
+        <block type="asset_init"></block>
+        <block type="asset_millis"></block>
+        <block type="asset_timerPeriod"></block>
+        <block type="asset_delay">
+            <value name="WAIT">
+                <block type="math_number">
+                    <field name="NUM">0</field>
+                </block>
+            </value>
+        </block>
+        <block type="asset_abortTimer"></block>
+        <block type="asset_timerAttachInterrupt"></block>
+        <block type="asset_timerDetachInterrupt"></block>
+        <block type="asset_timerPWM"></block>
+        <block type="asset_map">
+            <value name="VALUE">
+                <block type="math_number">
+                    <field name="NUM">0</field>
+                </block>
+            </value>
+            <value name="FROM_LOW">
+                <block type="math_number">
+                    <field name="NUM">0</field>
+                </block>
+            </value>
+            <value name="FROM_HIGH">
+                <block type="math_number">
+                    <field name="NUM">1024</field>
+                </block>
+            </value>
+            <value name="TO_LOW">
+                <block type="math_number">
+                    <field name="NUM">0</field>
+                </block>
+            </value>
+            <value name="TO_HIGH">
+                <block type="math_number">
+                    <field name="NUM">255</field>
+                </block>
+            </value>
+        </block>
+        <block type="asset_max">
+            <value name="VALUE">
+                <block type="math_number">
+                    <field name="NUM">0</field>
+                </block>
+            </value>
+            <value name="MAX">
+                <block type="math_number">
+                    <field name="NUM">88</field>
+                </block>
+            </value>
+        </block>
+        <block type="asset_max_min">
+            <value name="VALUE">
+                <block type="math_number">
+                    <field name="NUM">0</field>
+                </block>
+            </value>
+            <value name="MIN">
+                <block type="math_number">
+                    <field name="NUM">-88</field>
+                </block>
+            </value>
+            <value name="MAX">
+                <block type="math_number">
+                    <field name="NUM">88</field>
+                </block>
+            </value>
+        </block>
+        <block type="asset_min">
+            <value name="VALUE">
+                <block type="math_number">
+                    <field name="NUM">-88</field>
+                </block>
+            </value>
+            <value name="MIN">
+                <block type="math_number">
+                    <field name="NUM">88</field>
+                </block>
+            </value>
+        </block>
+    </category>
+    <sep></sep>
+    <category name="Входы/Выходы" colour="#964b00">
+        <block type="inout_highlow"></block>
+        <block type="inout_digital_write"></block>
+        <block type="inout_digital_read"></block>
+        <block type="inout_analog_write">
+            <value name="NUM">
+                <block type="math_number">
+                    <field name="NUM">0</field>
+                </block>
+            </value>
+        </block>
+        <block type="inout_analog_read"></block>
+        <block type="serial_print">
+            <value name="CONTENT">
+                <block type="text">
+                    <field name="TEXT"></field>
+                </block>
+            </value>
+        </block>
+        <block type="serial_read"></block>
+        <block type="inout_printHID"></block>
+        <block type="inout_writeHID"></block>
+    </category>
+    <category name="Датчики" colour="#4682B4">
+        <block type="port_photoresistor"></block>
+        <block type="port_barometer"></block>
+        <block type="port_button"></block>
+        <block type="port_limit_switch"></block>
+        <block type="port_line_digital"></block>
+        <block type="port_line_analog"></block>
+        <block type="port_sonic"></block>
+        <block type="port_dht"></block>
+        <block type="port_opt_encoder"></block>
+        <block type="port_ir_read"></block>
+        <block type="port_potentiometer"></block>
+    </category>
+    <category name="Индикаторы" colour="#4682B4">
+        <block type="port_charecterDisplay"></block>
+        <block type="port_led"></block>
+        <block type="port_ledRGB"></block>
+        <block type="port_flashlight"></block>
+    </category>
+    <category name="Звук" colour="#4682B4">
+        <block type="port_buzzer"></block>
+    </category>
+    <category name="Моторы" colour="#4682B4">
+        <block type="gearMotor"></block>
+    </category>
+    <category name="Серводвигатели" colour="#4682B4">
+        <block type="port_servo"></block>
+        <block type="port_rotateServo360"></block>
+    </category>
+    <category name="Коммуникация" colour="#4682B4">
+        <block type="port_bluetooth_read"></block>
+        <block type="port_bluetooth_write"></block>
+    </category>
+    <category name="Время" colour="#4682B4">
+        <block type="port_RTC_get"></block>
+        <block type="port_RTC_set"></block>
+    </category>
+</xml>
+<script type="text/javascript" src="./src/block/blockly_compressed.js"></script>
+<script type="text/javascript" src="./src/block/blocks_compressed.js?ver=1.0"></script>
+<script type="text/javascript" src="./src/block/blocks/ports.js?ver=1.0"></script>
+<script type="text/javascript" src="./src/block/blocks/assets_port.js?ver=1.0"></script>
+<script type="text/javascript" src="./src/block/arduino_compressed.js?ver=1.0"></script>
+<script type="text/javascript" src="./src/block/generators/arduino/ports.js?ver=1.0"></script>
+<script type="text/javascript" src="./src/block/generators/arduino/assets_port.js?ver=1.0"></script>
+<script type="text/javascript" src="./assets/js/Blob.js"></script>
+<script type="text/javascript" src="./assets/js/FileSaver.min.js"></script>
+<script type="text/javascript" src="./src/plugin-typed-variable-modal/index.js"></script>
+<script type="text/javascript" src="./src/block/msg/js/ru.js"></script>
+<script type="text/javascript" src="./assets/js/standart.js"></script>
+<script>
+    auto_save_and_restore_blocks_standart()
+</script>
+<script src="renderer.js"></script>
+</body>
+</html>
