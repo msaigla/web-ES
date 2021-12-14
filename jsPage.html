@@ -129,6 +129,7 @@
 		<block type="math_random_int"></block>
 		<block type="math_random_float"></block>
 		<block type="math_atan2"></block>
+        <block type="vertorjs_roundUp"></block>
     </category>
 	<category name="Текст" colour="%{BKY_TEXTS_HUE}">
 		<block type="text"></block>
@@ -144,16 +145,21 @@
 		<block type="text_getSubstring"></block>
 		<block type="text_changeCase"></block>
 		<block type="text_trim"></block>
-		<block type="text_print"></block>
 		<block type="text_prompt_ext"></block>
 		<block type="text_prompt"></block>
 		<block type="text_count"></block>
 		<block type="text_replace"></block>
 		<block type="text_reverse"></block>
 		<block type="text_equals"></block>
+        <block type="vertorjs_print"></block>
     </category>
 	<category name="Переменные" colour="330" custom="VARIABLE"></category>
 	<category name="Функции" colour="290" custom="PROCEDURE"></category>
+    <category name="Дополнительные функции" colour="290">
+        <block type="vertorjs_everyAndAfter"></block>
+        <block type="vertorjs_changeInterval"></block>
+        <block type="vertorjs_clearInterval"></block>
+    </category>
 	<category name="Массивы" colour="260">
 		<category name="Список" colour="260">
 			<block type="lists_create_empty"></block>
@@ -172,27 +178,33 @@
     </category>
     <sep></sep>
     <category name="Входы/Выходы" colour="#964b00">
-        <!-- <block type="inoutPin_get_info"></block>
-        <block type="inoutPin_mode"></block>
-        <block type="inoutPin_get_mode"></block>
-        <block type="inoutPin_read"></block>
-        <block type="inoutPin_write"></block>
-        <block type="inoutPin_write_at_time"></block>
-        <block type="inoutPin_set"></block>
-        <block type="inoutPin_reset"></block>
-        <block type="inoutSerial_available"></block>
-        <block type="inoutSerial_print"></block>
-        <block type="inoutSerial_println"></block>
-        <block type="inoutSerial_read"></block>
-        <block type="inoutSerial_write"></block>
-        <block type="inoutSerial"></block>
-        <block type="inoutSerial"></block>
-        <block type="inoutSerial"></block> -->
+        <block type="vertorjs_highlow"></block>
+        <block type="vertorjs_digital_write"></block>
+        <block type="vertorjs_digital_read"></block>
+        <block type="vertorjs_analog_write">
+            <value name="NUM">
+                <block type="math_number">
+                    <field name="NUM">0</field>
+                </block>
+            </value>
+        </block>
+        <block type="vertorjs_analog_read"></block>
+        <block type="vertorjs_watch"></block>
+        <block type="vertorjs_clearWatch"></block>
+        <block type="vertorjs_digitalPulse"></block>
+    </category>
+    <category name="Датчики" colour="#4682B4">
+
+    </category>
+    <category name="Индикаторы" colour="#4682B4">
+        
     </category>
 </xml>
 <script type="text/javascript" src="src/block/blockly_compressed.js"></script>
 <script type="text/javascript" src="src/block/blocks_compressed.js?ver=1.0"></script>
+<script type="text/javascript" src="./src/block/blocks/vertorjs.js?ver=1.0"></script>
 <script type="text/javascript" src="src/block/javascript_compressed.js"></script>
+<script type="text/javascript" src="./src/block/generators/javascript/vertorjs.js?ver=1.0"></script>
 <script type="text/javascript" src="assets/js/Blob.js"></script>
 <script type="text/javascript" src="assets/js/FileSaver.min.js"></script>
 <script type="text/javascript" src="src/block/msg/js/ru.js"></script>

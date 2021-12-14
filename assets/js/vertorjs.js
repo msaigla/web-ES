@@ -5,8 +5,8 @@ var blocklyDiv = document.getElementById('blocklyDiv');
 var codeJavaScript = document.getElementById('codeJavaScript');
 var selectPorts = document.getElementById('serialPorts');
 
-// profile["default"] = profile.js;
-// generator["default"] = generator.js;
+profile["default"] = profile.vertorjs;
+generator["default"] = generator.vertorjs;
 
 var workspace = Blockly.inject(blocklyDiv,
     {
