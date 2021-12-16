@@ -246,15 +246,147 @@ Blockly.Blocks.vertorjs_roundUp = {
     }
 };
 
-Blockly.Blocks.vertorjs_led = {
+// Blockly.Blocks.vertorjs_led = {
+//     helpUrl: "",
+//     validator: function(value) {
+//         this.getSourceBlock().updateLight(value);
+//         return value;
+//     },
+//     init: function () {
+//         this.setColour("#4682B4");
+//         this.appendDummyInput()
+//             .appendField(new Blockly.FieldDropdown([
+//                 [{'src': "assets/img/components/indicators/ВЭЛ10.131 Модуль белый светодиод.png", 'width': 64, 'height': 34, 'alt': 'Белый'}, "white"], 
+//                 [{'src': "assets/img/components/indicators/ВЭЛ10.132 Модуль красный светодиод.png", 'width': 64, 'height': 34, 'alt': 'Красный'}, "red"],
+//                 [{'src': "assets/img/components/indicators/ВЭЛ10.133 Модуль желтый светодиод.png", 'width': 64, 'height': 34, 'alt': 'Желтый'}, "yellow"],
+//                 [{'src': "assets/img/components/indicators/ВЭЛ10.134 Модуль зеленый светодиод.png", 'width': 64, 'height': 34, 'alt': 'Зеленый'}, "green"],
+//                 [{'src': "assets/img/components/indicators/ВЭЛ10.135 Модуль синий светодиод.png", 'width': 64, 'height': 34, 'alt': 'Синий'}, "blue"]
+//             ]), "COLOR")
+//             .appendField("Светодиод")
+//             .appendField(new Blockly.FieldDropdown([
+//                 ["с регулировкой яркости", "with"],
+//                 ["без регулировки яркости", "without"]
+//             ], this.validator), "TYPE");
+//         this.setPreviousStatement(!0,
+//             null);
+//         this.setNextStatement(!0, null);
+//         this.setTooltip("Блок выполняет управление модулем светодиодного индикатора. В верхнем выдающем меню выбирается цвет используемого индикатора. В выпадающем меню режимов выбирается режим с управляемой яркостью или режим без ее регулировки. От этого зависит перечень контактов контроллера, к которым данный модуль может подключаться. В режиме регулировки справа присоединяется блок с числом от 0 до 255, задающим яркость свечения. В нерегулируемом варианте присоединяется блок с логическим значением 0 для выключения светодиода и 1 для его свечения.");
+//     },
+//     updateLight: function(value) {
+//         if (value == "with") {
+//             this.removeInput('LIGHT', /* no error */ true);
+//             this.appendValueInput("LIGHT", ["Int", "Float", "Number", "unsigned int", "long", "double", "unsigned char", "Char"])
+//                 .setAlign(Blockly.ALIGN_RIGHT)
+//                 .appendField("На контакте D, подключенном к")
+//                 .appendField(new Blockly.FieldDropdown(profile.classic.pwm), "PIN")
+//                 .appendField(", установить яркость");
+//         } else if (value == "without") {
+//             this.removeInput('LIGHT', /* no error */ true);
+//             this.appendValueInput("LIGHT", ["Boolean"])
+//                 .setAlign(Blockly.ALIGN_RIGHT)
+//                 .appendField("На контакте D, подключенном к")
+//                 .appendField(new Blockly.FieldDropdown(profile.classic.digital), "PIN")
+//                 .appendField(", установить состояние");
+//         }
+//     }
+// };
+
+// Blockly.Blocks.classic_port_ledRGB = {
+//     helpUrl: "", init: function () {
+//         this.setColour("#4682B4");
+//         this.appendDummyInput()
+//             .appendField(new Blockly.FieldImage("assets/img/components/indicators/Светодиод RGB ВЭЛ10.136.png", 64, 40))
+//             .appendField("RGB светодиод");
+//         this.appendValueInput("R", ["Int", "Float", "Number", "unsigned int", "long", "double", "unsigned char", "Char"])
+//             .setAlign(Blockly.ALIGN_RIGHT)
+//             .appendField("Градация красного");
+//         this.appendValueInput("G", ["Int", "Float", "Number", "unsigned int", "long", "double", "unsigned char", "Char"])
+//             .setAlign(Blockly.ALIGN_RIGHT)
+//             .appendField("Градация зеленого");
+//         this.appendValueInput("B", ["Int", "Float", "Number", "unsigned int", "long", "double", "unsigned char", "Char"])
+//             .setAlign(Blockly.ALIGN_RIGHT)
+//             .appendField("Градация синего");
+//         this.setPreviousStatement(!0, null);
+//         this.setNextStatement(!0, null);
+//         this.setTooltip("Блок позволяет задать градации красного, зеленого и синего цветов с целью получения нужного итогового цвета свечения RGB светодиода. Градации задаются с помощью числа из диапазона от 0 до 255. Число 0 соответствует выключенному состоянию, а число 255 означает свечение с максимальной яркостью. Данные числа устанавливаются путем присоединения справа блока в виде числа или переменной следующих типов:  int, unsigned int, unsigned char.")
+//     }
+// };
+
+// Blockly.Blocks.classic_port_flashlight = {
+//     validator: function(value) {
+//         this.getSourceBlock().updateFlashlight(value);
+//         return value;
+//     },
+//     helpUrl: "", init: function () {
+//         this.setColour("#4682B4");
+//         this.appendDummyInput()
+//             .appendField(new Blockly.FieldImage("assets/img/components/indicators/ВЭЛ10.161 Модуль фонарь_2.png", 64, 40))
+//             .appendField("Фонарь")
+//             .appendField(new Blockly.FieldDropdown([
+//                 ["с регулировкой яркости", "with"],
+//                 ["без регулировки яркости", "without"]
+//             ], this.validator), "TYPE");
+//         this.setPreviousStatement(!0,
+//             null);
+//         this.setNextStatement(!0, null);
+//         this.setTooltip("Блок выполняет управление модулем «Фонарь», выполняющим функцию источника освещения. В выпадающем меню режимов выбирается режим с управляемой яркостью или режим без ее регулировки. От этого зависит перечень контактов контроллера, к которым данный модуль может подключаться. В режиме регулировки справа присоединяется блок с числом от 0 до 255, задающим яркость свечения. В нерегулируемом варианте присоединяется блок с логическим значением 0 для выключения фонаря и 1 для его свечения.")
+//     },
+//     updateFlashlight: function (value) {
+//         if (value == "with") {
+//             this.removeInput('LIGHT', /* no error */ true);
+//             this.appendValueInput("LIGHT", ["Int", "Float", "Number", "unsigned int", "long", "double", "unsigned char", "Char"])
+//                 .setAlign(Blockly.ALIGN_RIGHT)
+//                 .appendField("На контакте D, подключенном к")
+//                 .appendField(new Blockly.FieldDropdown(profile.classic.pwm), "PIN")
+//                 .appendField(", установить яркость");
+//         } else if (value == "without") {
+//             this.removeInput('LIGHT', /* no error */ true);
+//             this.appendValueInput("LIGHT", ["Boolean"])
+//                 .setAlign(Blockly.ALIGN_RIGHT)
+//                 .appendField("На контакте D, подключенном к")
+//                 .appendField(new Blockly.FieldDropdown(profile.classic.digital), "PIN")
+//                 .appendField(", установить состояние");
+//         }
+//     }
+// };
+
+Blockly.Blocks.vertorjs_getTime = {
+    helpUrl: "",
+    init: function () {
+        this.setColour("#a5995b");
+        this.appendDummyInput()
+            .appendField("Время после запуска контроллера");
+        this.setOutput(!0, null);
+        this.setTooltip("");
+    }
+};
+
+Blockly.Blocks.vertorjs_button = {
     helpUrl: "",
     init: function () {
         this.setColour("#4682B4");
-        this.appendValueInput("VALUE")
-            .appendField("Округлить до");
         this.appendDummyInput()
-            .appendField("знаков после запятой");
-        this.setOutput(!0, null);
-        this.setTooltip("");
+            .appendField(new Blockly.FieldDropdown([
+                [{'src': "assets/img/components/sensors/Модуль-тактовая-кнопка-с-белым-колпачком.png", 'width': 64, 'height': 34, 'alt': 'белый'}, "white"], 
+                [{'src': "assets/img/components/sensors/Модуль-тактовая-кнопка-с-зеленым-колпачком.png", 'width': 64, 'height': 34, 'alt': 'зеленый'}, "green"],
+                [{'src': "assets/img/components/sensors/Модуль-тактовая-кнопка-с-красным-колпачком.png", 'width': 64, 'height': 34, 'alt': 'красный'}, "red"],
+                [{'src': "assets/img/components/sensors/Модуль-тактовая-кнопка-с-серым-колпачком.png", 'width': 64, 'height': 34, 'alt': 'серый'}, "gray"],
+                [{'src': "assets/img/components/sensors/Модуль-тактовая-кнопка-с-синим-колпачком.png", 'width': 64, 'height': 34, 'alt': 'синий'}, "blue"]
+            ]), "COLOR")
+            .appendField("Тактовая кнопка");
+        this.appendDummyInput()
+            .appendField("Контакт D подключен к")
+            .appendField(new Blockly.FieldDropdown(profile.default.digital), "PIN");
+        this.appendDummyInput()
+            .appendField("Если кнопка")
+            .appendField(new Blockly.FieldDropdown([
+                ["нажата", "tap"],
+                ["отпущена", "let"]
+            ]), "TYPE");
+        this.appendStatementInput('DO', "input_statement")
+            .appendField('');
+        this.setPreviousStatement(!0, null);
+        this.setNextStatement(!0, null);
+        this.setTooltip('');
     }
 };

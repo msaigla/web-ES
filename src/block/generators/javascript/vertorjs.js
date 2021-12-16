@@ -85,3 +85,11 @@ Blockly.JavaScript.vertorjs_roundUp = function () {
     var VALUE = Blockly.JavaScript.valueToCode(this, "VALUE", Blockly.JavaScript.ORDER_ATOMIC) || "1";
     return [".toFixed(" + VALUE + ")", Blockly.JavaScript.ORDER_ATOMIC]
 };
+
+Blockly.JavaScript.vertorjs_button = function () {
+    var PIN = this.getFieldValue("PIN"),
+        TYPE = this.getFieldValue("TYPE"),
+        DO = Blockly.JavaScript.statementToCode(this, "DO");;
+    Blockly.JavaScript.setups_["BUTTON_" + PIN] = "var BUTTON_" + PIN + "=require('button').connect(" + PIN + ");";
+    return "BUTTON_" + PIN + ".on('" + TYPE + "', function(){\n" + DO + "});\n"
+};
