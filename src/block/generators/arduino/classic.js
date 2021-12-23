@@ -228,7 +228,9 @@ Blockly.Arduino.classic_servo = function (a) {
             if (a.getFieldValue("SPEED") === "10") {
                 return "servo" + SERVO + ".write(" + ANGLE + ");\n"
             }
-            let MS_FOR_ROTATE = "msRotate_evolvector = servo" + SERVO + ".getTargetDeg() - " +ANGLE+ ";\nmsRotate_evolvector = abs(msRotate_evolvector) / " + SPEED[0] + " * 1000 + 500;\n"
+            SPEED = servos["180"][SPEED];
+            console.log(SPEED);
+            let MS_FOR_ROTATE = "msRotate_evolvector = servo" + SERVO + ".getTargetDeg() - " + ANGLE + ";\nmsRotate_evolvector = abs(msRotate_evolvector) / " + SPEED[0] + " * 1000 + 500;\n"
             return MS_FOR_ROTATE + "servo" + SERVO + ".setSpeed(" + SPEED[0] + ");\nturnTimer_evolvector = millis();\nservoTimer_evolvector = millis();\nwhile (millis() - turnTimer_evolvector <= msRotate_evolvector) {\n  if (millis() - servoTimer_evolvector >= " + SPEED[1] + ") {\n    servoTimer_evolvector += " + SPEED[1] + ";\n    servo" + SERVO + ".tickManual();\n    servo" + SERVO + ".setTargetDeg(" + ANGLE + ");\n  }\n}\n"
         } else if (TYPE == "rotateWithoutTimer") {
             Blockly.Arduino.setups_["setup_button_" + SERVO] = "pinMode(" + SERVO + ", OUTPUT);";
