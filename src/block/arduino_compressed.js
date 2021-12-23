@@ -148,13 +148,10 @@ var define_var = ["\n"];
             e.match(/^#include/) ? b.push(e) : c.push(e)
         }
         e = [];
-        console.log(b);
-        console.log(c);
         let pinsDefault = "";
         if (Blockly.Arduino.setups_["setup_initBasis"] !== undefined) {
             pinsDefault = "pinsDefault();\n"
         }
-        console.log(define_var);
         let dv = define_var;
         define_var = ["\n"]
         for (d in Blockly.Arduino.setups_) e.push(Blockly.Arduino.setups_[d]);
@@ -852,7 +849,7 @@ var define_var = ["\n"];
             b = Blockly.Arduino.statementToCode(this, "STACK");
         Blockly.Arduino.INFINITE_LOOP_TRAP && (b = Blockly.Arduino.INFINITE_LOOP_TRAP.replace(/%1/g, "'" + this.id + "'") + b);
         var c = Blockly.Arduino.valueToCode(this, "RETURN", Blockly.Arduino.ORDER_NONE) || "0";
-        console.log(c);
+        
         var d = "void";
         if (c[0]) {
             var type_obj = c[0].charCodeAt();
@@ -865,7 +862,6 @@ var define_var = ["\n"];
             } else if (type_obj === 34){
                 d = "string";
             } else if (type_obj === 39) {
-                console.log(all_var);
                 d = "char";
             } else {
                 if (c.indexOf("digitalRead") !== -1) {
@@ -879,7 +875,6 @@ var define_var = ["\n"];
                         if (entry["name"] === c) {
                             d = entry["type"].toLowerCase();
                         }
-                        console.log(entry["name"]);
                     });
                 }
             }

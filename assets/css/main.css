@@ -49,3 +49,7 @@ div.win-btn:active {
     overflow-y: scroll;
     max-height: calc(100vh - 200px);
 }
+
+#blocklyDiv {
+    border: 3px solid #337ab7;
+}

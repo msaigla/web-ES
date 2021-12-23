@@ -43,10 +43,10 @@ var onresize = function (e) {
         element = element.offsetParent;
     } while (element);
     // Position blocklyDiv over blocklyArea.
-    blocklyDiv.style.left = '62px';
-    blocklyDiv.style.top = '45px';
-    blocklyDiv.style.width = blocklyArea.offsetWidth + 'px';
-    blocklyDiv.style.height = blocklyArea.offsetHeight - y + 50 + 'px';
+    blocklyDiv.style.left = '0';
+    blocklyDiv.style.top = '0';
+    blocklyDiv.style.width = blocklyArea.offsetWidth - 15 + 'px';
+    blocklyDiv.style.height = blocklyArea.offsetHeight - y + 48 + 'px';
     Blockly.svgResize(workspace);
 };
 
@@ -83,7 +83,9 @@ const typedVarModal = new TypedVariableModal(
         ["char (целочисленный, знаковый, символьный, содержит значения от -128 до 127);", "Char"], 
         ["unsigned char (целочисленный, беззнаковый, символьный, содержит значения от 0 до 255);", "unsigned char"],
         ["string (строковый тип данных (массив символов))", "String"]
-    ]);
+    ]
+);
+
 typedVarModal.init();
 
 Blockly.svgResize(workspace);
@@ -123,7 +125,6 @@ function showBlockly() {
 }
 
 function renderContent() {
-    console.log(selected);
     var content = document.getElementById('blocklyDiv');
     if (content.id == 'blocklyDiv') {
       Blockly.mainWorkspace.render();
@@ -173,10 +174,10 @@ function bindEvent(element, name, func) {
 
 function backup_blocks_classic() {
     if ('localStorage' in window) {
-      var xml = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);
-      window.localStorage.setItem('classic', Blockly.Xml.domToText(xml));
+        var xml = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);
+        window.localStorage.setItem('classic', Blockly.Xml.domToText(xml));
     }
-  }
+}
 
 function auto_save_and_restore_blocks_classic() {
     // Restore saved blocks in a separate thread so that subsequent
@@ -200,7 +201,6 @@ function load(event) {
     if (files.length != 1) {
       return;
     }
-    console.log(files)
     // FileReader
     var reader = new FileReader();
     reader.onloadend = function(event) {
@@ -220,7 +220,6 @@ function load(event) {
         try {
             Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, xml);
         } catch(err) {
-            console.log(err)
             alert("Ошибка\n Проверьте правильность выбранной Системы Вертор!")
             return;
         }
@@ -230,4 +229,29 @@ function load(event) {
       document.getElementById('load').value = '';
     };
     reader.readAsText(files[0]);
-  }
+}
+
+function updateFunction(event) {
+    let code = null;
+    let ta = null;
+    let evt = document.createEvent('Event');
+    code = Blockly.Arduino.workspaceToCode(workspace);
+    var l_lenght = 0;
+    let lines = code.split("\n");
+    $('.linesNum').empty();
+	for (let i = 0; i < lines.length; i++) {
+        $( ".linesNum" ).append( i + 1 + "<br>" );
+        if (l_lenght < lines[i].length) {
+            l_lenght = lines[i].length;
+        }
+    }
+    l_lenght = l_lenght * 8;
+    $('.code-arduino-IDE').val(code);
+    document.getElementById('code-duino').style.width = l_lenght + 'px';
+    autosize($('.code-arduino-IDE'));
+    ta = document.getElementById('code-duino');
+    evt.initEvent('autosize:update', true, false);
+    ta.dispatchEvent(evt);
+}
+
+workspace.addChangeListener(updateFunction);
