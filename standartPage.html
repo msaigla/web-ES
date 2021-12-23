@@ -4,19 +4,18 @@
     <meta charset="UTF-8">
     <title>Эвольвектор Studio</title>
 
-    <link rel="stylesheet" href="assets/css/jquery-linedtextarea.css">
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="node_modules/@fortawesome/fontawesome-free/css/all.min.css">
     <link rel="stylesheet" href="assets/css/main.css">
     <link rel="stylesheet" href="assets/css/leftMenu.css?ver=1.0">
+    <link rel="stylesheet" href="assets/css/separator.css?ver=1.0">
 
 
     <script src="src/jquery-3.6.0.min.js"></script>
     <script src="src/hogan.js/hogan-3.0.2.min.js"></script>
     <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- <script src="assets/js/frame/common.js"></script> -->
     <script src="assets/js/leftMenu.js?ver=1.0"></script>
-    <script src="assets/js/jquery-linedtextarea.js"></script>
+    <script src="src/autosize/autosize.js"></script>
 </head>
 <body>
 <div class="app">
@@ -26,15 +25,7 @@
             <div class="row" style="padding-bottom: 10px">
                 <div class="col" style="text-align: left;">
                     <div class="btn-group" role="group" aria-label="left">
-                        <button class="btn btn-success" onclick="showBlockly()" data-toggle="tooltip" data-placement="top"
-                                title="Программирование блоками" alt="Программирование блоками">
-                            <i class="fas fa-cubes"></i>
-                        </button>
                         <span class="input-group-text">Система Вертор Стандарт</span>
-                        <button class="btn btn-warning" onclick="showCodeArduino()" data-toggle="tooltip" data-placement="top"
-                                title="Результат для Arduino IDE" alt="Результат в С++">
-                            <i class="fas fa-code"></i>
-                        </button>
                     </div>
                 </div>
                 <div class="col" style="text-align: center;">
@@ -68,6 +59,7 @@
                                 title="Сохранить">
                             <i class="fas fa-save"></i>
                         </button>
+                        <input type="file" id="load" style="display: none;"/>
                         <button class="btn btn-info"
                                 id="fakeload"
                                 data-toggle="tooltip"
@@ -75,15 +67,28 @@
                                 title="Загрузить">
                             <i class="fas fa-upload"></i>
                         </button>
-                        <input type="file" id="load" style="display: none;"/>
                     </div>
                 </div>
             </div>
             <div class="row" style="padding-bottom: 10px; height: calc(100vh - 48px)">
                 <div class="col">
-                <div id="blocklyArea" style="display: block;"></div>
-                <div id="blocklyDiv" style="position: absolute; display:block; z-index: 2; left: 48px"></div>
-                <div id="codeArduino" style="height: calc(100vh - 60px); display:none;"></div>
+                    <div class="resize">
+                        <div class="resizeBlock">
+                            <div id="blocklyArea" style="display: block;"></div>
+                            <div id="blocklyDiv" style="position: absolute; display:block; z-index: 2; left: 48px"></div>
+                            <div class="separator">
+                                <i class="fas fa-ellipsis-v"></i>
+                            </div>
+                        </div>
+                        <div class="resizeCode">
+                            <div id="codeArduino" class="row scrollV">
+                                <div class="col linesNum"></div>
+                                <div class="col scrollH">
+                                    <textarea name="code" id="code-duino" class="code-arduino-IDE" readonly></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
          </div>
@@ -292,6 +297,7 @@
 <script type="text/javascript" src="./src/plugin-typed-variable-modal/index.js"></script>
 <script type="text/javascript" src="./src/block/msg/js/ru.js"></script>
 <script type="text/javascript" src="./assets/js/standart.js"></script>
+<script type="text/javascript" src="assets/js/frame/separator.js"></script>
 <script>
     auto_save_and_restore_blocks_standart()
 </script>

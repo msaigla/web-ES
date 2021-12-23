@@ -43,10 +43,10 @@ var onresize = function (e) {
         element = element.offsetParent;
     } while (element);
     // Position blocklyDiv over blocklyArea.
-    blocklyDiv.style.left = '62px';
-    blocklyDiv.style.top = '45px';
-    blocklyDiv.style.width = blocklyArea.offsetWidth + 'px';
-    blocklyDiv.style.height = blocklyArea.offsetHeight - y + 50 + 'px';
+    blocklyDiv.style.left = '0';
+    blocklyDiv.style.top = '0';
+    blocklyDiv.style.width = blocklyArea.offsetWidth - 15 + 'px';
+    blocklyDiv.style.height = blocklyArea.offsetHeight - y + 48 + 'px';
     Blockly.svgResize(workspace);
 };
 
@@ -231,3 +231,28 @@ function load(event) {
     };
     reader.readAsText(files[0]);
 }
+
+function updateFunction(event) {
+    let code = null;
+    let ta = null;
+    let evt = document.createEvent('Event');
+    code = Blockly.Arduino.workspaceToCode(workspace);
+    var l_lenght = 0;
+    let lines = code.split("\n");
+    $('.linesNum').empty();
+	for (let i = 0; i < lines.length; i++) {
+        $( ".linesNum" ).append( i + 1 + "<br>" );
+        if (l_lenght < lines[i].length) {
+            l_lenght = lines[i].length;
+        }
+    }
+    l_lenght = l_lenght * 8;
+    $('.code-arduino-IDE').val(code);
+    document.getElementById('code-duino').style.width = l_lenght + 'px';
+    autosize($('.code-arduino-IDE'));
+    ta = document.getElementById('code-duino');
+    evt.initEvent('autosize:update', true, false);
+    ta.dispatchEvent(evt);
+}
+
+workspace.addChangeListener(updateFunction);
