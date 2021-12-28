@@ -1,13 +1,13 @@
 'use strict';
 var servos = {
     "180": {
-        "1": ["25", "24"],
-        "2": ["60", "24"],
-        "3": ["100", "24"],
-        "4": ["100", "20"],
-        "5": ["100", "15"],
-        "6": ["100", "10"],
-        "7": ["100", "8"],
+        "1": ["5", "20"],
+        "2": ["15", "20"],
+        "3": ["20", "16"],
+        "4": ["30", "16"],
+        "5": ["30", "12"],
+        "6": ["50", "12"],
+        "7": ["50", "8"],
         "8": ["100", "6"],
         "9": ["100", "4"],
         "10": ["100", "3"],
@@ -297,15 +297,19 @@ Blockly.Arduino.port_servo = function (a) {
             if (a.getFieldValue("SPEED") === "10") {
                 return "servo" + SERVO + ".write(" + ANGLE + ");\n"
             }
-            console.log(SPEED)
             SPEED = servos["180"][SPEED];
-            console.log(SPEED)
-            let MS_FOR_ROTATE = "msRotate_evolvector = servo" + SERVO + ".getTargetDeg() - " + ANGLE + ";\nmsRotate_evolvector = abs(msRotate_evolvector) / " + SPEED[0] + " * 1000 + 500;\n"
-            return MS_FOR_ROTATE + "servo" + SERVO + ".setSpeed(" + SPEED[0] + ");\nturnTimer_evolvector = millis();\nservoTimer_evolvector = millis();\nwhile (millis() - turnTimer_evolvector <= msRotate_evolvector) {\n  if (millis() - servoTimer_evolvector >= " + SPEED[1] + ") {\n    servoTimer_evolvector += " + SPEED[1] + ";\n    servo" + SERVO + ".tickManual();\n    servo" + SERVO + ".setTargetDeg(" + ANGLE + ");\n  }\n}\n"
+            if (!Blockly.Arduino.definitions_.variables.includes("uint16_t angle_evolvector_var")) {
+                Blockly.Arduino.definitions_.variables = "uint16_t angle_evolvector_var;\n" +
+                                                        Blockly.Arduino.definitions_.variables;
+            }
+           // let MS_FOR_ROTATE = "msRotate_evolvector = servo" + SERVO + ".getTargetDeg() - " + ANGLE + ";\nmsRotate_evolvector = abs(msRotate_evolvector) / " + SPEED[0] + " * 1000 + 500;\n"
+           let FUNC_ROTATE = 'angle_evolvector_var=180;\nservo' + SERVO + '.setSpeed(' + SPEED[0] + ');  // Параметрами  setSpeed(180) и  ms_timer_evolvector задается скорость поворота вала сервопривода\nms_timer_evolvector=' + SPEED[1] + ';\nservoTimer_evolvector = millis();\nwhile (1){\n  if (millis() - servoTimer_evolvector >= ms_timer_evolvector) {\n    servoTimer_evolvector += ms_timer_evolvector;\n    servo' + SERVO + '.tickManual();\n    servo' + SERVO + '.setTargetDeg(angle_evolvector_var);\n  }\n  if(servo' + SERVO + '.getCurrentDeg()>=angle_evolvector_var-1 && servo' + SERVO + '.getCurrentDeg()<=angle_evolvector_var+1)\n  {break;}\n}\n';
+           // return MS_FOR_ROTATE + "servo" + SERVO + ".setSpeed(" + SPEED[0] + ");\nturnTimer_evolvector = millis();\nservoTimer_evolvector = millis();\nwhile (millis() - turnTimer_evolvector <= msRotate_evolvector) {\n  if (millis() - servoTimer_evolvector >= " + SPEED[1] + ") {\n    servoTimer_evolvector += " + SPEED[1] + ";\n    servo" + SERVO + ".tickManual();\n    servo" + SERVO + ".setTargetDeg(" + ANGLE + ");\n  }\n}\n"
+           return FUNC_ROTATE;
         } else if (TYPE == "rotateWithoutTimer") {
             Blockly.Arduino.setups_["setup_button_" + SERVO] = "pinMode(" + SERVO + ", OUTPUT);";
-            let DO = '  angle=map(angle, 0, 180, 550, 2400);\n  for (int count = 0; count<5; count++) {\n    digitalWrite(pin, HIGH);\n    delayMicroseconds(angle);\n    digitalWrite(pin, LOW);\n    delayMicroseconds(21000 - angle);\n  }\n'
-            Blockly.Arduino.definitions_["define_void_servo_set_evolvector"] = "void servo_set_evolvector(int pin, int angle) {\n" + DO + "\n}\n"
+            let DO = '  angle_evolvector=map(angle, 0, 180, 550, 2400);\n  for (int count = 0; count<5; count++) {\n    digitalWrite(pin, HIGH);\n    delayMicroseconds(angle_evolvector);\n    digitalWrite(pin, LOW);\n    delayMicroseconds(21000 - angle_evolvector);\n  }\n'
+            Blockly.Arduino.definitions_["define_void_servo_set_evolvector"] = "void servo_set_evolvector(int pin, int angle_evolvector) {\n" + DO + "\n}\n"
             return "servo_set_evolvector(" + SERVO + ", " + ANGLE + ");\n"
         }
     }
