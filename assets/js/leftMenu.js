@@ -32,6 +32,12 @@ menu = '\
         </a>\
       </div>\
       <div class="item">\
+        <i class="fab fa-fw fa-python"></i>\
+        <a class="nav-link" href="pyPage.html">\
+          Python\
+        </a>\
+      </div>\
+      <div class="item">\
         <i class="fas fa-fw fa-info"></i>\
         <a class="nav-link" href="info.html">\
           О приложении\

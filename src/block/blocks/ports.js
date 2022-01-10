@@ -990,6 +990,11 @@ Blockly.Blocks.gearMotor = {
             ]), "TURN");
         this.appendDummyInput()
             .appendField("Подключенный к разъему")
+            .appendField(new Blockly.FieldDropdown([
+                ["прямо", "true"],
+                ["инвертировано", "false"]
+            ]), "ROTATION_TYPE")
+            .appendField("к разъему")
             .appendField(new Blockly.FieldDropdown(profile["default"].motor), "PORT");
         this.appendDummyInput()
             .appendField(new Blockly.FieldDropdown([

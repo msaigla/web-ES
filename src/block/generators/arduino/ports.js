@@ -414,16 +414,17 @@ Blockly.Arduino.serial_read = function(a) {
 Blockly.Arduino.gearMotor = function(a) {
     let TURN=a.getFieldValue("TURN"),
         PORT=a.getFieldValue("PORT"),
-        FUNC=a.getFieldValue("FUNC");
+        FUNC=a.getFieldValue("FUNC"),
+        ROTATION_TYPE=a.getFieldValue("ROTATION_TYPE");
     if (generator["default"] == generator.mega) {
         Blockly.Arduino.definitions_.define_Pultocod_h="#include <MotorsVM.h>";
-        if (!Blockly.Arduino.definitions_.variables.includes("MotorsVM evolvector_M" + PORT + " = MotorsVM(" + PORT + ");")) {
-            Blockly.Arduino.definitions_.variables = "MotorsVM evolvector_M" + PORT + " = MotorsVM(" + PORT + ");\n" +
+        if (!Blockly.Arduino.definitions_.variables.includes("MotorsVM evolvector_M" + PORT + " = MotorsVM(" + PORT + ", " + ROTATION_TYPE + ");")) {
+            Blockly.Arduino.definitions_.variables = "MotorsVM evolvector_M" + PORT + " = MotorsVM(" + PORT + ", " + ROTATION_TYPE + ");\n" +
                                                     Blockly.Arduino.definitions_.variables;
         }
     } else {
-        if (!Blockly.Arduino.definitions_.variables.includes("MotorsVS_I2C evolvector_M" + PORT + " = MotorsVS_I2C(" + PORT + ");")) {
-            Blockly.Arduino.definitions_.variables = "MotorsVS_I2C evolvector_M" + PORT + " = MotorsVS_I2C(" + PORT + ");\n" +
+        if (!Blockly.Arduino.definitions_.variables.includes("MotorsVS_I2C evolvector_M" + PORT + " = MotorsVS_I2C(" + PORT + ", " + ROTATION_TYPE + ");")) {
+            Blockly.Arduino.definitions_.variables = "MotorsVS_I2C evolvector_M" + PORT + " = MotorsVS_I2C(" + PORT + ", " + ROTATION_TYPE + ");\n" +
                                                     Blockly.Arduino.definitions_.variables;
         }
         Blockly.Arduino.definitions_.define_Pultocod_h="#include <MotorsVS.h>";
