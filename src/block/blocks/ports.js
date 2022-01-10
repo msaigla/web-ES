@@ -989,7 +989,7 @@ Blockly.Blocks.gearMotor = {
                 ["220 об/мин", "220"]
             ]), "TURN");
         this.appendDummyInput()
-            .appendField("Подключенный к разъему")
+            .appendField("Подключенный")
             .appendField(new Blockly.FieldDropdown([
                 ["прямо", "true"],
                 ["инвертировано", "false"]
