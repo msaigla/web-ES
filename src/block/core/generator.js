@@ -66,7 +66,7 @@ Blockly.Generator.prototype.STATEMENT_SUFFIX = null;
  * may override this to increase indent or change to tabs.
  * @type {string}
  */
-Blockly.Generator.prototype.INDENT = '  ';
+Blockly.Generator.prototype.INDENT = '    ';
 
 /**
  * Maximum length for a comment before wrapping.  Does not account for
@@ -420,7 +420,7 @@ Blockly.Generator.prototype.variableDB_;
  * The code gets output when Blockly.Generator.finish() is called.
  *
  * @param {string} desiredName The desired name of the function (e.g., isPrime).
- * @param {!Array.<string>} code A list of statements.  Use '  ' for indents.
+ * @param {!Array.<string>} code A list of statements.  Use '    ' for indents.
  * @return {string} The actual name of the new function.  This may differ
  *     from desiredName if the former has already been taken by the user.
  * @protected
@@ -432,7 +432,7 @@ Blockly.Generator.prototype.provideFunction_ = function(desiredName, code) {
     this.functionNames_[desiredName] = functionName;
     var codeText = code.join('\n').replace(
         this.FUNCTION_NAME_PLACEHOLDER_REGEXP_, functionName);
-    // Change all '  ' indents into the desired indent.
+    // Change all '    ' indents into the desired indent.
     // To avoid an infinite loop of replacements, change all indents to '\0'
     // character first, then replace them all with the indent.
     // We are assuming that no provided functions contain a literal null char.

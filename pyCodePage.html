@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Эвольвектор Studio</title>
+
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/leftMenu.css?ver=1.0">
+    <link rel="stylesheet" href="assets/css/separator.css?ver=1.0">
+
+
+    <script src="src/jquery-3.6.0.min.js"></script>
+    <script src="src/hogan.js/hogan-3.0.2.min.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/leftMenu.js?ver=1.0"></script>
+    <script src="src/autosize/autosize.js"></script>
+</head>
+<body>
+<div class="app">
+    <div class="row content" style="height: calc(100vh); margin: 0;">
+        <div class="left-menu col" style="height: 100%;"></div>
+        <div class="col" style="width: calc(100vh-30px);">
+            <div class="row" style="padding-bottom: 10px">
+                <div class="col" style="text-align: left;">
+                    <div class="btn-group" role="group" aria-label="left">
+                        <span class="input-group-text">Python 3 code</span>
+                    </div>
+                </div>
+                <!-- <div class="col" style="text-align: center;">
+                    <div class="btn-group" role="group" aria-label="center">
+                        <a class="btn btn-primary" href="https://academy.evolvector.ru/baza/lib-vertor-klassik-for-studio.zip" data-toggle="tooltip" data-placement="top"
+                                title="Скачать библиотеки для классик" alt="Скачать библиотеки для классик">
+                            <i class="fas fa-file-archive"></i>
+                        </a>
+                    </div>
+                </div> -->
+                <div class="col" style="text-align: right;">
+                    <div class="btn-group" role="group" aria-label="right">
+                        <button class="btn btn-danger"
+                                onclick="discard()"
+                                data-toggle="tooltip"
+                                data-placement="top"
+                                title="Очистить">
+                            <i class="fas fa-eraser"></i>
+                        </button>
+                        <button class="btn btn-info"
+                                onclick="saveCode()"
+                                data-toggle="tooltip"
+                                data-placement="top"
+                                title="Сохранить код в Python 3">
+                            <i class="fas fa-file-download"></i>
+                        </button>
+                        <button class="btn btn-info"
+                                onclick="save()"
+                                data-toggle="tooltip"
+                                data-placement="top"
+                                title="Сохранить">
+                            <i class="fas fa-save"></i>
+                        </button>
+                        <button class="btn btn-info"
+                                id="fakeload"
+                                data-toggle="tooltip"
+                                data-placement="top"
+                                title="Загрузить">
+                            <i class="fas fa-upload"></i>
+                        </button>
+                        <input type="file" id="load" style="display: none;"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="padding-bottom: 10px; height: calc(100vh - 48px)">
+                <div class="col">
+                    <div class="resize">
+                        <div class="resizeBlock">
+                            <div id="blocklyArea" style="display: block;"></div>
+                            <div id="blocklyDiv" style="position: absolute; display:block; z-index: 2; left: 48px"></div>
+                            <div class="separator">
+                                <i class="fas fa-ellipsis-v"></i>
+                            </div>
+                        </div>
+                        <div class="resizeCode">
+                            <div id="codePython" class="row scrollV">
+                                <div class="col linesNum"></div>
+                                <div class="col scrollH">
+                                    <textarea name="code" id="code-py" class="code-python-IDE" readonly></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+         </div>
+    </div>
+</div>
+<xml id="toolbox" style="display: none">
+    <category name="Логика" colour="#ffa500" expanded="true">
+		<block type="logic_boolean"></block>
+		<block type="logic_null"></block>
+		<block type="logic_compare"></block>
+		<block type="controls_if"></block>
+		<block type="controls_ifelse"></block>
+		<block type="logic_operation"></block>
+		<block type="logic_negate"></block>
+		<block type="logic_ternary"></block>
+    </category>
+	<category name="Циклы" colour="120">
+		<block type="controls_repeat_ext"></block>
+			<value name="TIMES">
+				<block type="math_number">
+					<field name="NUM">10</field>
+                </block>
+            </value>
+		<block type="controls_repeat"></block>
+		<block type="controls_whileUntil"></block>
+		<block type="controls_for"></block>
+		<block type="controls_forEach"></block>
+		<block type="controls_flow_statements"></block>
+    </category>
+	<category name="Математика" colour="230">
+		<block type="math_number">
+            <field name="NUM">0</field>
+        </block>
+		<block type="math_constant"></block>
+		<block type="math_arithmetic"></block>
+		<block type="math_single"></block>
+		<block type="math_trig"></block>
+		<block type="math_number_property"></block>
+		<block type="math_round"></block>
+		<block type="math_on_list"></block>
+		<block type="math_modulo"></block>
+		<block type="math_constrain"></block>
+		<block type="math_random_int"></block>
+		<block type="math_random_float"></block>
+		<block type="math_atan2"></block>
+    </category>
+	<category name="Текст" colour="%{BKY_TEXTS_HUE}">
+		<block type="text"></block>
+		<block type="text_multiline"></block>
+		<block type="text_join"></block>
+		<block type="text_create_join_container"></block>
+		<block type="text_create_join_item"></block>
+		<block type="text_append"></block>
+		<block type="text_length"></block>
+		<block type="text_isEmpty"></block>
+		<block type="text_indexOf"></block>
+		<block type="text_charAt"></block>
+		<block type="text_getSubstring"></block>
+		<block type="text_changeCase"></block>
+		<block type="text_trim"></block>
+		<block type="text_prompt_ext"></block>
+		<block type="text_prompt"></block>
+		<block type="text_count"></block>
+		<block type="text_replace"></block>
+		<block type="text_reverse"></block>
+		<block type="text_equals"></block>
+    </category>
+	<category name="Переменные" colour="330" custom="VARIABLE"></category>
+	<category name="Функции" colour="290" custom="PROCEDURE"></category>
+	<category name="Массивы" colour="260">
+		<category name="Список" colour="260">
+			<block type="lists_create_empty"></block>
+			<block type="lists_create_with"></block>
+			<block type="lists_repeat"></block>
+			<block type="lists_length"></block>
+			<block type="lists_isEmpty"></block>
+			<block type="lists_indexOf"></block>
+			<block type="lists_getIndex"></block>
+			<block type="lists_setIndex"></block>
+			<block type="lists_getSublist"></block>
+			<block type="lists_sort"></block>
+			<block type="lists_split"></block>
+			<block type="lists_reverse"></block>
+        </category>
+    </category>
+    <sep></sep>
+    <category name="Консоль" colour="#333">
+    </category>
+    <sep></sep>
+    <category name="Входы/Выходы" colour="#964b00">
+        <block type="rpi_highlow"></block>
+        <block type="rpi_gpioInit"></block>
+        <block type="rpi_gpioRead"></block>
+        <block type="rpi_gpioWrite"></block>
+    </category>
+</xml>
+<script type="text/javascript" src="src/block/blockly_compressed.js"></script>
+<script type="text/javascript" src="src/block/blocks_compressed.js?ver=1.0"></script>
+<script type="text/javascript" src="./src/block/blocks/python/rpi.js?ver=1.0"></script>
+<script type="text/javascript" src="src/block/python_compressed.js"></script>
+<script type="text/javascript" src="./src/block/generators/python/rpi.js?ver=1.0"></script>
+<script type="text/javascript" src="assets/js/Blob.js"></script>
+<script type="text/javascript" src="assets/js/FileSaver.min.js"></script>
+<script type="text/javascript" src="src/block/msg/js/ru.js"></script>
+<script type="text/javascript" src="assets/js/python3.js"></script>
+<script type="text/javascript" src="./assets/js/frame/separator.js"></script>
+<script>
+    auto_save_and_restore_blocks_python()
+</script>
+<script src="renderer.js"></script>
+</body>
+</html>
