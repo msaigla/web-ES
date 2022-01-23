@@ -57,19 +57,21 @@ Blockly.JavaScript.vertorjs_digitalPulse = function () {
 Blockly.JavaScript.vertorjs_everyAndAfter = function () {
     var DELAY = Blockly.JavaScript.valueToCode(this, "DELAY", Blockly.JavaScript.ORDER_ATOMIC) || "1000",
         TYPE = this.getFieldValue("TYPE"),
-        FUNCTION = Blockly.JavaScript.valueToCode(this, "FUNCTION", Blockly.JavaScript.ORDER_ATOMIC) || "";
-    return [TYPE + FUNCTION + ", " + DELAY + ")", Blockly.JavaScript.ORDER_ATOMIC]
+        NAMEFUNC = this.getFieldValue("NAMEFUNC"),
+        DO = Blockly.JavaScript.statementToCode(this, "DO");
+    Blockly.JavaScript.definitions_["define_func_" + NAMEFUNC] = "function " + NAMEFUNC + "() {\n" + DO + "\n}\n"
+    return [TYPE + NAMEFUNC + ", " + DELAY + ")", Blockly.JavaScript.ORDER_ATOMIC]
 };
 
 Blockly.JavaScript.vertorjs_changeInterval = function () {
-    var ID = Blockly.JavaScript.valueToCode(this, "ID", Blockly.JavaScript.ORDER_ATOMIC) || "",
-        VALUE = Blockly.JavaScript.valueToCode(this, "VALUE", Blockly.JavaScript.ORDER_ATOMIC) || "";
-    return "changeInterval(" + ID + ", " + VALUE + ");\n"
+    var NAMEFUNC = this.getFieldValue("NAMEFUNC"),
+        VALUE = Blockly.JavaScript.valueToCode(this, "VALUE", Blockly.JavaScript.ORDER_ATOMIC) || 100;
+    return "changeInterval(" + NAMEFUNC + ", " + VALUE + ");\n"
 };
 
 Blockly.JavaScript.vertorjs_clearInterval = function () {
-    var ID = Blockly.JavaScript.valueToCode(this, "ID", Blockly.JavaScript.ORDER_ATOMIC) || "";
-    return "clearInterval(" + ID + ");\n"
+    var NAMEFUNC = this.getFieldValue("NAMEFUNC");
+    return "clearInterval(" + NAMEFUNC + ");\n"
 };
 
 Blockly.JavaScript.vertorjs_print = function () {

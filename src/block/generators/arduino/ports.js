@@ -280,7 +280,7 @@ Blockly.Arduino.port_servo = function (a) {
             START_ANGLE = a.getFieldValue("START_ANGLE");
         Blockly.Arduino.definitions_.define_ServoSmooth="#include <ServoSmooth.h>\n";
         if (!Blockly.Arduino.definitions_.variables.includes("uint32_t servoTimer_evolvector")) {
-            Blockly.Arduino.definitions_.variables = "uint32_t servoTimer_evolvector;\nuint32_t turnTimer_evolvector;\nfloat msRotate_evolvector;\n" +
+            Blockly.Arduino.definitions_.variables = "uint32_t servoTimer_evolvector;\n" +
                                                     Blockly.Arduino.definitions_.variables;
         }
         if (!Blockly.Arduino.definitions_.variables.includes("ServoSmooth servo" + SERVO + ";")) {
@@ -299,11 +299,12 @@ Blockly.Arduino.port_servo = function (a) {
             }
             SPEED = servos["180"][SPEED];
             if (!Blockly.Arduino.definitions_.variables.includes("uint16_t angle_evolvector_var")) {
-                Blockly.Arduino.definitions_.variables = "uint16_t angle_evolvector_var;\n" +
+                Blockly.Arduino.definitions_.variables = "int16_t angle_evolvector_var;\n" +
+                                                        "uint16_t ms_timer_evolvector;" +
                                                         Blockly.Arduino.definitions_.variables;
             }
            // let MS_FOR_ROTATE = "msRotate_evolvector = servo" + SERVO + ".getTargetDeg() - " + ANGLE + ";\nmsRotate_evolvector = abs(msRotate_evolvector) / " + SPEED[0] + " * 1000 + 500;\n"
-           let FUNC_ROTATE = 'angle_evolvector_var=180;\nservo' + SERVO + '.setSpeed(' + SPEED[0] + ');  // Параметрами  setSpeed(180) и  ms_timer_evolvector задается скорость поворота вала сервопривода\nms_timer_evolvector=' + SPEED[1] + ';\nservoTimer_evolvector = millis();\nwhile (1){\n  if (millis() - servoTimer_evolvector >= ms_timer_evolvector) {\n    servoTimer_evolvector += ms_timer_evolvector;\n    servo' + SERVO + '.tickManual();\n    servo' + SERVO + '.setTargetDeg(angle_evolvector_var);\n  }\n  if(servo' + SERVO + '.getCurrentDeg()>=angle_evolvector_var-1 && servo' + SERVO + '.getCurrentDeg()<=angle_evolvector_var+1)\n  {break;}\n}\n';
+           let FUNC_ROTATE = 'angle_evolvector_var=' + ANGLE + ';\nservo' + SERVO + '.setSpeed(' + SPEED[0] + ');  // Параметрами  setSpeed(180) и  ms_timer_evolvector задается скорость поворота вала сервопривода\nms_timer_evolvector=' + SPEED[1] + ';\nservoTimer_evolvector = millis();\nwhile (1){\n  if (millis() - servoTimer_evolvector >= ms_timer_evolvector) {\n    servoTimer_evolvector += ms_timer_evolvector;\n    servo' + SERVO + '.tickManual();\n    servo' + SERVO + '.setTargetDeg(angle_evolvector_var);\n  }\n  if(servo' + SERVO + '.getCurrentDeg()>=angle_evolvector_var-1 && servo' + SERVO + '.getCurrentDeg()<=angle_evolvector_var+1)\n  {break;}\n}\n';
            // return MS_FOR_ROTATE + "servo" + SERVO + ".setSpeed(" + SPEED[0] + ");\nturnTimer_evolvector = millis();\nservoTimer_evolvector = millis();\nwhile (millis() - turnTimer_evolvector <= msRotate_evolvector) {\n  if (millis() - servoTimer_evolvector >= " + SPEED[1] + ") {\n    servoTimer_evolvector += " + SPEED[1] + ";\n    servo" + SERVO + ".tickManual();\n    servo" + SERVO + ".setTargetDeg(" + ANGLE + ");\n  }\n}\n"
            return FUNC_ROTATE;
         } else if (TYPE == "rotateWithoutTimer") {
