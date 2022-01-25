@@ -137,51 +137,13 @@ Blockly.Blocks.vertorjs_everyAndAfter = {
                 ["Через", "setTimeout("]
             ]), "TYPE");
         this.appendDummyInput()
-            .appendField("миллисекунд выполнять")
-            .appendField(new Blockly.FieldTextInput('название функции'),
-            'NAMEFUNC');
+            .appendField("миллисекунд выполнять");
         this.appendStatementInput('DO', "input_statement")
             .appendField('Действия');
         this.setOutput(!0, null);
         this.setTooltip("");
     }
 };
-
-// Blockly.Blocks.vertorjs_changeInterval = {
-//     helpUrl: "",
-//     init: function () {
-//         this.setColour("#a5995b");
-//         this.appendValueInput("ID")
-//             .appendField("Изменить период выполнения");
-//         this.appendDummyInput()
-//             .appendField(new Blockly.FieldTextInput('название функции'),
-//             'NAMEFUNC')
-//             .appendField("на");
-//         this.appendDummyInput()
-//             .appendField("миллисекунд");
-//         this.setInputsInline(true);
-//         // this.appendStatementInput('DO', "input_statement")
-//         //     .appendField('');
-//         this.setPreviousStatement(!0, null);
-//         this.setNextStatement(!0, null);
-//         this.setTooltip("");
-//     }
-// };
-
-// Blockly.Blocks.vertorjs_clearInterval = {
-//     helpUrl: "",
-//     init: function () {
-//         this.setColour("#a5995b");
-//         this.appendDummyInput()
-//             .appendField("Прекратить циклическое выполнение")
-//             .appendField(new Blockly.FieldTextInput('название функции'),
-//             'NAMEFUNC');
-//         this.setInputsInline(true);
-//         this.setPreviousStatement(!0, null);
-//         this.setNextStatement(!0, null);
-//         this.setTooltip("");
-//     }
-// };
 
 // Blockly.Blocks.vertorjs_print = {
 //     helpUrl: "",
@@ -210,17 +172,13 @@ Blockly.Blocks.vertorjs_changeInterval = {
     helpUrl: "",
     init: function () {
         this.setColour("#a5995b");
-        this.appendDummyInput()
-            .appendField("Изменить период выполнения")
-            .appendField(new Blockly.FieldTextInput('название функции'),
-            'NAMEFUNC');
+        this.appendValueInput("NAMEFUNC")
+            .appendField("Изменить период выполнения");
         this.appendValueInput("VALUE")
             .appendField("на");
         this.appendDummyInput()
             .appendField("миллисекунд");
         this.setInputsInline(true);
-        // this.appendStatementInput('DO', "input_statement")
-        //     .appendField('');
         this.setPreviousStatement(!0, null);
         this.setNextStatement(!0, null);
         this.setTooltip("");
@@ -231,10 +189,8 @@ Blockly.Blocks.vertorjs_clearInterval = {
     helpUrl: "",
     init: function () {
         this.setColour("#a5995b");
-        this.appendDummyInput()
-            .appendField("Прекратить циклическое выполнение")
-            .appendField(new Blockly.FieldTextInput('название функции'),
-            'NAMEFUNC');
+        this.appendValueInput("NAMEFUNC")
+            .appendField("Прекратить циклическое выполнение");
         this.setInputsInline(true);
         this.setPreviousStatement(!0, null);
         this.setNextStatement(!0, null);
