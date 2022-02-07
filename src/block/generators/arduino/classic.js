@@ -229,7 +229,7 @@ Blockly.Arduino.classic_servo = function (a) {
                 return "servo" + SERVO + ".write(" + ANGLE + ");\n"
             }
             SPEED = servos["180"][SPEED];
-            if (!Blockly.Arduino.definitions_.variables.includes("uint16_t angle_evolvector_var")) {
+            if (!Blockly.Arduino.definitions_.variables.includes("int16_t angle_evolvector_var;")) {
                 Blockly.Arduino.definitions_.variables = "int16_t angle_evolvector_var;\n" +
                                                         "uint16_t ms_timer_evolvector;" +
                                                         Blockly.Arduino.definitions_.variables;
