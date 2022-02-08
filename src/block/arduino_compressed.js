@@ -65,6 +65,8 @@ var generator = {
     }
 };
 
+Blockly.INDENT = "    ";
+
 var define_var = ["\n"];
 
 ;(function (root, factory) {
