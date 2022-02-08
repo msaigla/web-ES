@@ -246,7 +246,8 @@ function updateFunction(event) {
         }
     }
     l_lenght = l_lenght * 8;
-    $('.code-arduino-IDE').val(code);
+    code = color_codes(code);
+    $('.code-arduino-IDE').html(code);
     document.getElementById('code-duino').style.width = l_lenght + 'px';
     autosize($('.code-arduino-IDE'));
     ta = document.getElementById('code-duino');

@@ -12,6 +12,6 @@ Blockly.Blocks.infinite_while = {
             .appendField('Действия:');
         this.setPreviousStatement(!0, null);
         this.setNextStatement(!0, null);
-        this.setTooltip('');
+        this.setTooltip('Блок бесконечно выполняет действия (в виде набора блоков), помещенные в соответствующее поле.');
     }
 };
