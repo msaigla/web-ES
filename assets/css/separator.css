@@ -31,6 +31,9 @@
 }
 
 .resizeBlock {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
     width: 70%;
     float: left;
     position:relative;
@@ -47,6 +50,9 @@
 }
 
 .linesNum {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
     padding: 10px 5px 10px 5px;
     max-width: 40px;
     border-right: 3px solid gray;
