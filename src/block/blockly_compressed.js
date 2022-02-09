@@ -8282,9 +8282,25 @@
             }
         }
     };
-    Blockly.WorkspaceSvg.prototype.zoom = function (a, b, c) {
+    $("#toolbox-scale").change(function() {
+        var d = $("#toolbox-scale").val() / 100;
+        if (d < Blockly.mainWorkspace.options.zoomOptions.minScale) {
+            $("#toolbox-scale").val(Math.floor(Blockly.mainWorkspace.options.zoomOptions.minScale*100));
+            d = Blockly.mainWorkspace.options.zoomOptions.minScale
+        } else if (d > Blockly.mainWorkspace.options.zoomOptions.maxScale) {
+            $("#toolbox-scale").val(Math.floor(Blockly.mainWorkspace.options.zoomOptions.maxScale*100));
+            d = Blockly.mainWorkspace.options.zoomOptions.maxScale
+        } else {
+            $("#toolbox-scale").val(Math.floor(d*100));
+        }
+        Blockly.mainWorkspace.setScale(d)
+    });        
+    Blockly.WorkspaceSvg.prototype.zoom = function (a, b, c, d) {
         c = Math.pow(this.options.zoomOptions.scaleSpeed, c)
-        var d = this.scale * c;
+        console.log(a + " " + b + " " + c + " " + d)
+        if (d === undefined) {
+            var d = this.scale * c;
+        }
         if (this.scale != d) {
             d > this.options.zoomOptions.maxScale ? c = this.options.zoomOptions.maxScale / this.scale : d < this.options.zoomOptions.minScale && (c = this.options.zoomOptions.minScale / this.scale);
             var e = this.getCanvas().getCTM(), f = this.getParentSvg().createSVGPoint();
@@ -8299,11 +8315,11 @@
                 e.f;
             this.setScale(d)
             if (d < this.options.zoomOptions.minScale) {
-                $("#toolbox-scale").html("Масштаб: " + Math.floor(this.options.zoomOptions.minScale*100) + "%");
+                $("#toolbox-scale").val(Math.floor(this.options.zoomOptions.minScale*100));
             } else if (d > this.options.zoomOptions.maxScale) {
-                $("#toolbox-scale").html("Масштаб: " + Math.floor(this.options.zoomOptions.maxScale*100) + "%");
+                $("#toolbox-scale").val(Math.floor(this.options.zoomOptions.maxScale*100));
             } else {
-                $("#toolbox-scale").html("Масштаб: " + Math.floor(d*100) + "%");
+                $("#toolbox-scale").val(Math.floor(d*100));
             }
         }
     };
