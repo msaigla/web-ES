@@ -42,11 +42,13 @@ var onresize = function (e) {
         y += element.offsetTop;
         element = element.offsetParent;
     } while (element);
+    console.log(x + " " + y);
     // Position blocklyDiv over blocklyArea.
     blocklyDiv.style.left = '0';
     blocklyDiv.style.top = '0';
     blocklyDiv.style.width = blocklyArea.offsetWidth - 15 + 'px';
     blocklyDiv.style.height = blocklyArea.offsetHeight - y + 48 + 'px';
+    
     Blockly.svgResize(workspace);
 };
 
@@ -240,7 +242,7 @@ function updateFunction(event) {
     let lines = code.split("\n");
     $('.linesNum').empty();
 	for (let i = 0; i < lines.length; i++) {
-        $( ".linesNum" ).append( i + 1 + "<br>" );
+        $( ".linesNum" ).append(i + 1 + "<br>");
         if (l_lenght < lines[i].length) {
             l_lenght = lines[i].length;
         }
@@ -252,6 +254,7 @@ function updateFunction(event) {
     autosize($('.code-arduino-IDE'));
     ta = document.getElementById('code-duino');
     evt.initEvent('autosize:update', true, false);
+    // $('.linesNum').style.height = "100px";
     ta.dispatchEvent(evt);
 }
 

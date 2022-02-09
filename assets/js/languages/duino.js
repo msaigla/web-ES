@@ -64,7 +64,6 @@ let words = {
 }
 
 function color_codes(code) {
-    console.log(code);
     code = code.replaceAll(" ", "&#160;");
     code = code.replaceAll("<", "&lt;");
     code = code.replaceAll(">", "&gt;");
@@ -74,3 +73,21 @@ function color_codes(code) {
     code = code.replaceAll("\n", "<br>");
     return code;
 }
+
+function syncScroll(el1, el2) {
+    let $el1 = $(el1);
+    let $el2 = $(el2);
+    let forcedScroll = false;
+    $el1.scroll(function() { performScroll($el1, $el2); });
+    $el2.scroll(function() { performScroll($el2, $el1); });
+    function performScroll($scrolled, $toScroll) {
+        if (forcedScroll) return (forcedScroll = false);
+        setScrollTopFromPercent($toScroll, $scrolled.scrollTop() / ($scrolled[0].scrollHeight - $scrolled.outerHeight()));
+    }
+    function setScrollTopFromPercent($el, percent) {
+        forcedScroll = true;
+        $el.scrollTop(percent * ($el[0].scrollHeight - $el.outerHeight()));
+    }
+}
+
+syncScroll($('.scrollNumV'), $('.scrollV'));

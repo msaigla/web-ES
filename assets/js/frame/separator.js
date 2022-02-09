@@ -14,6 +14,11 @@ $('.separator').on('mousedown', function(e) {
         $secontCol.css({
             width: (100 - newWidth) + '%'
         });
+        if ($("#codeArduino").width() < 150) {
+            $("#codeArduino").hide();
+        } else {
+            $("#codeArduino").show();
+        }
         onresize();
     }
   
