@@ -8298,7 +8298,13 @@
             this.scrollY =
                 e.f;
             this.setScale(d)
-            $("#toolbox-scale").html("Размер блоков: " + Math.floor(d*100) + "%");
+            if (d < this.options.zoomOptions.minScale) {
+                $("#toolbox-scale").html("Масштаб: " + Math.floor(this.options.zoomOptions.minScale*100) + "%");
+            } else if (d > this.options.zoomOptions.maxScale) {
+                $("#toolbox-scale").html("Масштаб: " + Math.floor(this.options.zoomOptions.maxScale*100) + "%");
+            } else {
+                $("#toolbox-scale").html("Масштаб: " + Math.floor(d*100) + "%");
+            }
         }
     };
     Blockly.WorkspaceSvg.prototype.zoomCenter = function (a) {
