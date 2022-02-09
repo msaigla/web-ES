@@ -71,6 +71,9 @@ function color_codes(code) {
         code = code.replaceAll(key, "<font color=\"" + words[key] + "\">" + key + "</font>");
     }
     code = code.replaceAll("\n", "<br>");
+    while (!code.indexOf("<br>")) {
+        code = code.replace("<br>", "");
+    }
     return code;
 }
 

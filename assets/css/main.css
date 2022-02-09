@@ -1,7 +1,23 @@
-* {
+.dark-style {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    scrollbar-width: thin;
+    scrollbar-color: #333 #337ab7;
+}
+
+.dark-style ::-webkit-scrollbar {
+    height: 15px;
+    width: 15px;
+}
+.dark-style ::-webkit-scrollbar-track {
+    background: #333;
+}
+
+.dark-style  ::-webkit-scrollbar-thumb {
+    background-color: #337ab7;
+    /* border-radius: 5px; */
+    border: 1px solid #333;
 }
 
 html, body {
@@ -52,4 +68,31 @@ div.win-btn:active {
 
 #blocklyDiv {
     border: 3px solid #337ab7;
+}
+
+.form-switch .form-check-input {
+    background-image: url("../img/switch-dark.png");   
+}
+
+.form-switch .form-check-input:focus {
+    background-image: url("../img/switch-dark.png");
+    border-color: #333;
+}
+
+.form-switch .form-check-input:focus:checked {
+    /* background-image: url("../img/switch-dark.png"); */
+    background-position: right center;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e");
+    border-color: #fff;
+}
+
+.light-dark-switch:checked {
+    background-color: #333;
+    border-color: #fff;
+}
+
+.form-check-input:focus {
+    /* border-color: #86b7fe; */
+    outline: 0;
+    box-shadow: none;
 }

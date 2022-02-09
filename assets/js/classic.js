@@ -257,5 +257,6 @@ function updateFunction(event) {
     // $('.linesNum').style.height = "100px";
     ta.dispatchEvent(evt);
 }
+    
 
 workspace.addChangeListener(updateFunction);

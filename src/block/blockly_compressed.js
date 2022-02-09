@@ -8295,12 +8295,9 @@
         }
         Blockly.mainWorkspace.setScale(d)
     });        
-    Blockly.WorkspaceSvg.prototype.zoom = function (a, b, c, d) {
+    Blockly.WorkspaceSvg.prototype.zoom = function (a, b, c) {
         c = Math.pow(this.options.zoomOptions.scaleSpeed, c)
-        console.log(a + " " + b + " " + c + " " + d)
-        if (d === undefined) {
-            var d = this.scale * c;
-        }
+        var d = this.scale * c;
         if (this.scale != d) {
             d > this.options.zoomOptions.maxScale ? c = this.options.zoomOptions.maxScale / this.scale : d < this.options.zoomOptions.minScale && (c = this.options.zoomOptions.minScale / this.scale);
             var e = this.getCanvas().getCTM(), f = this.getParentSvg().createSVGPoint();
