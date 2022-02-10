@@ -38,5 +38,6 @@ $("#code-scale").change(function() {
     } else {
         $("#code-scale").val(Math.floor(d*100));
     }
+    $(".linesNum").css("maxWidth", d*40 + "px")
     $(".resizeCode").css("fontSize", d + "rem");
 });
