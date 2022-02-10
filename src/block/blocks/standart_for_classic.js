@@ -428,7 +428,7 @@ Blockly.Blocks.classic_port_buzzer = {
                     .setCheck(["Int", "Float", "Number", "unsigned int", "long", "double"])
                     .appendField("Частота в Гц");
             }
-        }  else if (value == "toneTime") {
+        } else if (value == "toneTime") {
             this.appendValueInput("MS", ["Int", "Float", "Number", "unsigned int", "long", "double"]);
             this.appendDummyInput("PINS")
                 .appendField("На контакт D, подключенный к")
