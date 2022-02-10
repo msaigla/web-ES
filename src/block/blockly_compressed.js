@@ -10422,6 +10422,7 @@
     };
     Blockly.ToolboxCategory.prototype.setSelected = function (a) {
         if (a) {
+            console.log(a);
             var b = this.parseColour_(Blockly.ToolboxCategory.defaultBackgroundColour);
             this.rowDiv_.style.backgroundColor = this.colour_ || b;
             Blockly.utils.dom.addClass(this.rowDiv_, this.cssConfig_.selected)
