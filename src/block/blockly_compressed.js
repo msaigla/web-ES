@@ -8281,20 +8281,7 @@
                 this.getParentSvg().parentNode.focus({preventScroll: !0})
             }
         }
-    };
-    $("#toolbox-scale").change(function() {
-        var d = $("#toolbox-scale").val() / 100;
-        if (d < Blockly.mainWorkspace.options.zoomOptions.minScale) {
-            $("#toolbox-scale").val(Math.floor(Blockly.mainWorkspace.options.zoomOptions.minScale*100));
-            d = Blockly.mainWorkspace.options.zoomOptions.minScale
-        } else if (d > Blockly.mainWorkspace.options.zoomOptions.maxScale) {
-            $("#toolbox-scale").val(Math.floor(Blockly.mainWorkspace.options.zoomOptions.maxScale*100));
-            d = Blockly.mainWorkspace.options.zoomOptions.maxScale
-        } else {
-            $("#toolbox-scale").val(Math.floor(d*100));
-        }
-        Blockly.mainWorkspace.setScale(d)
-    });        
+    };        
     Blockly.WorkspaceSvg.prototype.zoom = function (a, b, c) {
         c = Math.pow(this.options.zoomOptions.scaleSpeed, c)
         var d = this.scale * c;

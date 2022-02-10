@@ -14,10 +14,22 @@ $('.separator').on('mousedown', function(e) {
         $secontCol.css({
             width: (100 - newWidth) + '%'
         });
-        if ($("#codeArduino").width() < 150) {
-            $("#codeArduino").hide();
+        if ($("#codeArduino").width() < 250) {
+            $("#code-scale-div").hide();
+            if ($("#codeArduino").width() < 150) {
+                $("#codeArduino").hide();
+            } else {
+                $("#codeArduino").show();
+            }
         } else {
+            $("#code-scale-div").show();
             $("#codeArduino").show();
+        }
+        console.log($("#resizeBlock").width())
+        if ($("#resizeBlock").width() < 250) {
+            $("#toolbox-scale-div").hide();
+        } else {
+            $("#toolbox-scale-div").show();
         }
         onresize();
     }

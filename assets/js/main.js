@@ -26,3 +26,17 @@ $(document).ready(function() {
         $('#app').addClass('light-style');
     }
 });
+
+$("#code-scale").change(function() {
+    var d = $("#code-scale").val() / 100;
+    if (d < Blockly.mainWorkspace.options.zoomOptions.minScale) {
+        $("#code-scale").val(Math.floor(Blockly.mainWorkspace.options.zoomOptions.minScale*100));
+        d = Blockly.mainWorkspace.options.zoomOptions.minScale
+    } else if (d > Blockly.mainWorkspace.options.zoomOptions.maxScale) {
+        $("#code-scale").val(Math.floor(Blockly.mainWorkspace.options.zoomOptions.maxScale*100));
+        d = Blockly.mainWorkspace.options.zoomOptions.maxScale
+    } else {
+        $("#code-scale").val(Math.floor(d*100));
+    }
+    $(".resizeCode").css("fontSize", d + "rem");
+});

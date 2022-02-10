@@ -18,7 +18,11 @@
 <body>
     <div class="app">
         <div class="row content" style="height: calc(100vh); margin: 0;">
-            <div class="left-menu col" style="height: 100%;"></div>
+            <div class="left-menu col position-relative" style="height: 100%;">
+                <div class="form-check form-switch position-absolute botton-0 end-0">
+                    <input id="light-dark-switch" class="form-check-input position-absolute bottom-0 light-dark-switch" type="checkbox" checked>
+                </div>
+            </div>
             <div class="col" style="width: calc(100vh - 60px);">
                 <h1>О приложении</h1>
                 <p style="text-indent: 40px; margin-bottom: 0;">Студия «Эвольвектор» представляет собой блочно-графическую среду программирования электронных устройств, собираемых из контроллеров и электронных модулей системы «Вертор 2.0» производства компании ООО «Эвольвектор».</p>

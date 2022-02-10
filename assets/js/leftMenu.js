@@ -2,8 +2,8 @@ $(document).ready(function() {
     let template = Hogan.compile(menu);
     let output = template.render();
   
-    const div = document.querySelector('.left-menu');
-    div.innerHTML = output;
+    const div = $('.left-menu');
+    div.prepend(output);
 });
   
 menu = '\

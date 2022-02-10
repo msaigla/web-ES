@@ -20,7 +20,11 @@
 <body>
 <div id="app" class="app">
     <div class="row content" style="height: calc(100vh); margin: 0;">
-        <div class="left-menu col" style="height: 100%;"></div>
+        <div class="left-menu col position-relative" style="height: 100%;">
+            <div class="form-check form-switch position-absolute botton-0 end-0">
+                <input id="light-dark-switch" class="form-check-input position-absolute bottom-0 light-dark-switch" type="checkbox" checked>
+            </div>
+        </div>
         <div class="col" style="width: calc(100vh-30px);">
             <div class="row" style="padding-bottom: 10px">
                 <div class="col" style="text-align: left;">
@@ -30,13 +34,6 @@
                             title="Скачать библиотеки для классик" alt="Скачать библиотеки для классик">
                             <i class="fas fa-file-archive"></i>
                         </a>
-                    </div>
-                </div>
-                <div class="col" style="text-align: center; max-width: 250px;">
-                    <div class="input-group" role="group" aria-label="center">
-                        <span class="input-group-text">Масштаб:</span>
-                        <input id="toolbox-scale" type="number" min="30" max="300" class="form-control" value="100"></input>
-                        <span class="input-group-text">%</span>
                     </div>
                 </div>
                 <div class="col" style="text-align: right;">
@@ -76,7 +73,16 @@
             <div class="row" style="padding-bottom: 10px; height: calc(100vh - 48px)">
                 <div class="col">
                     <div class="resize">
-                        <div class="resizeBlock">
+                        <div id="resizeBlock" class="resizeBlock position-relative">
+                            <div id="toolbox-scale-div" class="input-group position-absolute" role="group" aria-label="center"
+                                style="max-width: 200px;
+                                       z-index: 3;
+                                       right: 50px;
+                                       top: 10px;">
+                                <span class="input-group-text">Масштаб:</span>
+                                <input id="toolbox-scale" type="number" min="30" max="300" class="form-control" value="100"></input>
+                                <span class="input-group-text">%</span>
+                            </div>
                             <div id="blocklyArea" style="display: block;"></div>
                             <div id="blocklyDiv" style="position: absolute; display:block; z-index: 2; left: 48px"></div>
                             <div class="separator">
@@ -84,10 +90,16 @@
                             </div>
                         </div>
                         <div class="resizeCode">
+                            <div id="code-scale-div" class="input-group position-absolute" role="group" aria-label="center"
+                                style="max-width: 200px;
+                                       z-index: 3;
+                                       right: 20px;
+                                       top: 10px;">
+                                <span class="input-group-text">Масштаб:</span>
+                                <input id="code-scale" type="number" min="30" max="300" class="form-control" value="100"></input>
+                                <span class="input-group-text">%</span>
+                            </div>
                             <div id="codeArduino" class="row position-relative">
-                                <div class="form-check form-switch position-absolute top-0 end-0">
-                                    <input id="light-dark-switch" class="form-check-input position-absolute top-0 light-dark-switch" style="right: 20px;" type="checkbox" id="" checked>
-                                </div>
                                 <div class="col linesNum scrollNumV"></div>
                                 <div class="col scrollH scrollV">
                                     <div name="code" id="code-duino" class="code-arduino-IDE"></div>
