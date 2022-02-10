@@ -233,30 +233,4 @@ function load(event) {
     reader.readAsText(files[0]);
 }
 
-function updateFunction(event) {
-    let code = null;
-    let ta = null;
-    let evt = document.createEvent('Event');
-    code = Blockly.Arduino.workspaceToCode(workspace);
-    var l_lenght = 0;
-    let lines = code.split("\n");
-    $('.linesNum').empty();
-	for (let i = 0; i < lines.length; i++) {
-        $( ".linesNum" ).append(i + 1 + "<br>");
-        if (l_lenght < lines[i].length) {
-            l_lenght = lines[i].length;
-        }
-    }
-    l_lenght = l_lenght * 8;
-    code = color_codes(code);
-    $('.code-arduino-IDE').html(code);
-    document.getElementById('code-duino').style.width = l_lenght + 'px';
-    autosize($('.code-arduino-IDE'));
-    ta = document.getElementById('code-duino');
-    evt.initEvent('autosize:update', true, false);
-    // $('.linesNum').style.height = "100px";
-    ta.dispatchEvent(evt);
-}
-    
-
 workspace.addChangeListener(updateFunction);

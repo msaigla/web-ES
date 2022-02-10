@@ -2,24 +2,24 @@ let KEYWORD1 = "#a25f2a",
     KEYWORD2 = "#ffa500";
 
 let words = {
-    "int": "#30d5c8",
+    "String": "#30d5c8",
     "boolean": "#30d5c8",
     "bool": "#30d5c8",
     "char": "#30d5c8",
+    "uint8_t": "#30d5c8",
     "int8_t": "#30d5c8",
     "byte": "#30d5c8",
-    "uint8_t": "#30d5c8",
-    "int": "#30d5c8",
+    "uint16_t": "#30d5c8",
     "int16_t": "#30d5c8",
     "short": "#30d5c8",
     "unsigned int": "#30d5c8",
-    "uint16_t": "#30d5c8",
-    "long": "#30d5c8",
+    "uint32_t": "#30d5c8",
     "int32_t": "#30d5c8",
     "unsigned long": "#30d5c8",
-    "uint32_t": "#30d5c8",
+    "long": "#30d5c8",
     "float": "#30d5c8",
     "double": "#30d5c8",
+    "int": "#30d5c8",
     "void": "#30d5c8",
     "HIGH": "#30d5c8",
     "LOW": "#30d5c8",
@@ -91,6 +91,31 @@ function syncScroll(el1, el2) {
         forcedScroll = true;
         $el.scrollTop(percent * ($el[0].scrollHeight - $el.outerHeight()));
     }
+}
+
+function updateFunction(event) {
+    let code = null;
+    let ta = null;
+    let evt = document.createEvent('Event');
+    code = Blockly.Arduino.workspaceToCode(workspace);
+    var l_lenght = 0;
+    let lines = code.split("\n");
+    $('.linesNum').empty();
+	for (let i = 0; i < lines.length; i++) {
+        $( ".linesNum" ).append(i + 1 + "<br>");
+        if (l_lenght < lines[i].length) {
+            l_lenght = lines[i].length;
+        }
+    }
+    l_lenght = l_lenght * 8;
+    code = color_codes(code);
+    $('.code-arduino-IDE').html(code);
+    document.getElementById('code-duino').style.width = l_lenght + 'px';
+    autosize($('.code-arduino-IDE'));
+    ta = document.getElementById('code-duino');
+    evt.initEvent('autosize:update', true, false);
+    // $('.linesNum').style.height = "100px";
+    ta.dispatchEvent(evt);
 }
 
 syncScroll($('.scrollNumV'), $('.scrollV'));

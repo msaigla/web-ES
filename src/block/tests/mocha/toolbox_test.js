@@ -434,7 +434,7 @@ suite('Toolbox', function() {
       chai.assert.equal(toolbox.height_, toolbox.HtmlDiv.offsetHeight, 'Check height');
     }
     function checkVerticalToolbox(toolbox) {
-      chai.assert.equal(toolbox.HtmlDiv.style.height, '100%', 'Check height');
+      chai.assert.equal(toolbox.HtmlDiv.style.height, '99.5%', 'Check height');
       chai.assert.equal(toolbox.width_, toolbox.HtmlDiv.offsetWidth, 'Check width');
     }
     test('HtmlDiv is not created -> Should not resize', function() {

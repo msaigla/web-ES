@@ -10795,7 +10795,7 @@
     };
     Blockly.Toolbox.prototype.position = function () {
         var a = this.workspace_.getMetrics(), b = this.HtmlDiv;
-        b && (this.horizontalLayout_ ? (b.style.left = "0", b.style.height = "auto", b.style.width = "100%", this.height_ = b.offsetHeight, this.width_ = a.viewWidth, this.toolboxPosition == Blockly.utils.toolbox.Position.TOP ? b.style.top = "0" : b.style.bottom = "0") : (this.toolboxPosition == Blockly.utils.toolbox.Position.RIGHT ? b.style.right = "0" : b.style.left = "0", b.style.height = "100%", this.width_ = b.offsetWidth, this.height_ = a.viewHeight), this.flyout_.position())
+        b && (this.horizontalLayout_ ? (b.style.left = "0", b.style.height = "auto", b.style.width = "100%", this.height_ = b.offsetHeight, this.width_ = a.viewWidth, this.toolboxPosition == Blockly.utils.toolbox.Position.TOP ? b.style.top = "0" : b.style.bottom = "0") : (this.toolboxPosition == Blockly.utils.toolbox.Position.RIGHT ? b.style.right = "0" : b.style.left = "0", b.style.height = "99.5%", this.width_ = b.offsetWidth, this.height_ = a.viewHeight), this.flyout_.position())
     };
     Blockly.Toolbox.prototype.handleToolboxItemResize = function () {
         var a = this.workspace_, b = this.HtmlDiv.getBoundingClientRect();

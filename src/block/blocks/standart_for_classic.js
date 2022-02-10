@@ -343,6 +343,7 @@ Blockly.Blocks.classic_port_buzzer = {
     },
     updateTimer: function(value) {
         this.removeInput('VALUE', /* no error */ true);
+        this.removeInput('MS', /* no error */ true);
         this.removeInput('HZ', /* no error */ true);
         this.removeInput('PINS', /* no error */ true);
         if (value == 'Timer1') {
@@ -376,6 +377,7 @@ Blockly.Blocks.classic_port_buzzer = {
                 .appendField("Состояние звукоизлучателя:")
                 .appendField(new Blockly.FieldDropdown([
                     ["включен", "tone"], 
+                    ["Включить на время", "toneTime"],
                     ["выключен", "noTone"]
                 ], this.validator), "OPTIONS");
             this.appendDummyInput("PINS")
@@ -426,6 +428,16 @@ Blockly.Blocks.classic_port_buzzer = {
                     .setCheck(["Int", "Float", "Number", "unsigned int", "long", "double"])
                     .appendField("Частота в Гц");
             }
+        }  else if (value == "toneTime") {
+            this.appendValueInput("MS", ["Int", "Float", "Number", "unsigned int", "long", "double"]);
+            this.appendDummyInput("PINS")
+                .appendField("На контакт D, подключенный к")
+                .appendField(new Blockly.FieldDropdown(profile.classic.digital), "PIN")
+                .appendField(", подать сигнал");
+            this.appendValueInput("HZ", ["Int", "Float", "Number", "unsigned int", "long", "double"])
+                .setAlign(Blockly.ALIGN_RIGHT)
+                .setCheck(["Int", "Float", "Number", "unsigned int", "long", "double"])
+                .appendField("Частота в Гц");
         }
     }
 };
