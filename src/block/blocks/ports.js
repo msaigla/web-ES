@@ -421,6 +421,7 @@ Blockly.Blocks.port_buzzer = {
             }
         } else if (value == "toneTime") {
             this.appendValueInput("MS", ["Int", "Float", "Number", "unsigned int", "long", "double"])
+                .setAlign(Blockly.ALIGN_RIGHT)
                 .appendField("мс");
             this.appendDummyInput("PINS")
                 .appendField("С порта")
