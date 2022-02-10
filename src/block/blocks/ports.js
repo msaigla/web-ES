@@ -420,7 +420,8 @@ Blockly.Blocks.port_buzzer = {
                     .appendField("с частотой, Гц");
             }
         } else if (value == "toneTime") {
-            this.appendValueInput("MS", ["Int", "Float", "Number", "unsigned int", "long", "double"]);
+            this.appendValueInput("MS", ["Int", "Float", "Number", "unsigned int", "long", "double"])
+                .appendField("мс");
             this.appendDummyInput("PINS")
                 .appendField("С порта")
                 .appendField(new Blockly.FieldDropdown(profile["default"].port), "PORT")
