@@ -55,3 +55,17 @@ $("#toolbox-scale").change(function() {
     }
     Blockly.mainWorkspace.setScale(d);
 });
+
+$(window).on('resize', function(){
+    if ($("#codeArduino").width() < 250) {
+        $("#code-scale-div").hide();
+        if ($("#codeArduino").width() < 150) {
+            $("#codeArduino").hide();
+        } else {
+            $("#codeArduino").show();
+        }
+    } else {
+        $("#code-scale-div").show();
+        $("#codeArduino").show();
+    }
+});
