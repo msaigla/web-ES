@@ -41,3 +41,17 @@ $("#code-scale").change(function() {
     $(".linesNum").css("maxWidth", d*40 + "px")
     $(".resizeCode").css("fontSize", d + "rem");
 });
+
+$("#toolbox-scale").change(function() {
+    var d = $("#toolbox-scale").val() / 100;
+    if (d < Blockly.mainWorkspace.options.zoomOptions.minScale) {
+        $("#toolbox-scale").val(Math.floor(Blockly.mainWorkspace.options.zoomOptions.minScale*100));
+        d = Blockly.mainWorkspace.options.zoomOptions.minScale
+    } else if (d > Blockly.mainWorkspace.options.zoomOptions.maxScale) {
+        $("#toolbox-scale").val(Math.floor(Blockly.mainWorkspace.options.zoomOptions.maxScale*100));
+        d = Blockly.mainWorkspace.options.zoomOptions.maxScale
+    } else {
+        $("toolbox-scale").val(Math.floor(d*100));
+    }
+    Blockly.mainWorkspace.setScale(d);
+});
