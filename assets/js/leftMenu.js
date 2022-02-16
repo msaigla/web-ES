@@ -33,13 +33,9 @@ menu = '\
       </div>\
       <div class="item">\
         <i class="fab fa-fw fa-python"></i>\
-        <div class="itemList">\
-          <span>Python</span>\
-          <div class="itemList-content">\
-            <a class="nav-link" href="pyCodePage.html">Редактор для Raspberry PI</a><br>\
-            <a class="nav-link" href="pyGenerationPage.html">Генератор для общения с xDuino</a><br>\
-          </div>\
-        </div>\
+        <a class="nav-link" href="pyCodePage.html">\
+          RPI-Вертор\
+        </a>\
       </div>\
       <div class="item">\
         <i class="fas fa-fw fa-info"></i>\

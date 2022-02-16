@@ -448,6 +448,7 @@ Blockly.Blocks.port_controller_buzzer = {
             .appendField("Бузер контроллера")
             .appendField(new Blockly.FieldDropdown([
                 ["включить", "tone"],
+                ["включить на время", "toneTime"],
                 ["выключить", "noTone"]
             ], this.validator), "TYPE");
         this.setPreviousStatement(!0,
@@ -457,7 +458,15 @@ Blockly.Blocks.port_controller_buzzer = {
     },
     updateBuzzer: function(value) {
         this.removeInput('HZ', /* no error */ true);
+        this.removeInput('MS', /* no error */ true);
         if (value == "tone") {
+            this.appendValueInput("HZ", ["Int", "Float", "Number", "unsigned int", "long", "double"])
+                .setAlign(Blockly.ALIGN_RIGHT)
+                .appendField("Подать на бузер сигнал с частотой, Гц");
+        } if (value == "toneTime") {
+            this.appendValueInput("MS", ["Int", "Float", "Number", "unsigned int", "long", "double"])
+                .setAlign(Blockly.ALIGN_RIGHT)
+                .appendField("мс");
             this.appendValueInput("HZ", ["Int", "Float", "Number", "unsigned int", "long", "double"])
                 .setAlign(Blockly.ALIGN_RIGHT)
                 .appendField("Подать на бузер сигнал с частотой, Гц");
