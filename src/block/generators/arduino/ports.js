@@ -192,6 +192,17 @@ Blockly.Arduino.port_buzzer = function (a) {
     }
 };
 
+Blockly.Arduino.port_controller_buzzer = function (a) {
+    let TYPE = a.getFieldValue("TYPE"),
+        pin = 12;
+    if (TYPE == "tone") {
+        let HZ = Blockly.Arduino.valueToCode(a, "HZ", Blockly.Arduino.ORDER_ATOMIC) || "1";
+        return TYPE + "(" + pin + ", " + HZ + ");\n"
+    } else {
+        return TYPE + "(" + pin + ");\n"
+    }
+}
+
 Blockly.Arduino.portMega_buzzer = function (a) {
     let pin = generator["default"].port[a.getFieldValue("PORT")][0],
         opt = a.getFieldValue("OPTIONS"),

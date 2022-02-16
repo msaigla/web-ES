@@ -435,6 +435,36 @@ Blockly.Blocks.port_buzzer = {
     }
 };
 
+Blockly.Blocks.port_controller_buzzer = {
+    helpUrl: "",
+    validator: function(value) {
+        this.getSourceBlock().updateBuzzer(value);
+        return value;
+    },
+    init: function () {
+        this.setColour("#4682B4");
+        this.appendDummyInput()
+            .appendField(new Blockly.FieldImage("assets/img/components/sound/Бузер-контроллера.png", 64, 40))
+            .appendField("Бузер контроллера")
+            .appendField(new Blockly.FieldDropdown([
+                ["включить", "tone"],
+                ["выключить", "noTone"]
+            ], this.validator), "TYPE");
+        this.setPreviousStatement(!0,
+            null);
+        this.setNextStatement(!0, null);
+        this.setTooltip("Блок позволяет организовать управление звуковым излучателем, смонтированным на контроллер Вертор Стандарт. Для вывода сигнала используется Таймер 2. При выборе состояния \"Выключен\" бузер выключается. В случае выбора состояния \"Включен\" с помощью дополнительного блока справа (числового или переменного) устанавливается значение частоты (задает тональность звучания), величина которой задается в диапазоне от 0 до 15000 Гц.")
+    },
+    updateBuzzer: function(value) {
+        this.removeInput('HZ', /* no error */ true);
+        if (value == "tone") {
+            this.appendValueInput("HZ", ["Int", "Float", "Number", "unsigned int", "long", "double"])
+                .setAlign(Blockly.ALIGN_RIGHT)
+                .appendField("Подать на бузер сигнал с частотой, Гц");
+        }
+    }
+};
+
 Blockly.Blocks.portMega_buzzer = {
     TIMER: "",
     validator: function(value) {

@@ -122,3 +122,10 @@ textarea {
     background-color: rgba(0, 0, 0, 0);
     width: 200px;
 }
+
+#code-scale-div,
+#toolbox-scale-div {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
