@@ -197,13 +197,13 @@ Blockly.Arduino.port_controller_buzzer = function (a) {
         pin = "MISO";
     if (TYPE == "tone") {
         let HZ = Blockly.Arduino.valueToCode(a, "HZ", Blockly.Arduino.ORDER_ATOMIC) || "1";
-        return TYPE + "(" + pin + ", " + HZ + ");\n"
+        return "tone(" + pin + ", " + HZ + ");\n"
     } else if (TYPE == "toneTime") {
         let HZ = Blockly.Arduino.valueToCode(a, "HZ", Blockly.Arduino.ORDER_ATOMIC) || "1",
             MS = Blockly.Arduino.valueToCode(a, "MS", Blockly.Arduino.ORDER_ATOMIC) || "1000";
-        return TYPE + "(" + pin + ", " + HZ + ", " + MS + ");\n"
+        return "tone(" + pin + ", " + HZ + ", " + MS + ");\n"
     } else {
-        return TYPE + "(" + pin + ");\n"
+        return "noTone(" + pin + ");\n"
     }
 }
 
