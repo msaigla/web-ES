@@ -116,7 +116,7 @@ Blockly.Arduino.port_charecterDisplay = function (a) {
 Blockly.Arduino.port_led = function (a) {
     let pin = generator["default"].port[a.getFieldValue("PORT")][0];
     let sig = Blockly.Arduino.valueToCode(a, "LIGHT", Blockly.Arduino.ORDER_ATOMIC) || "1024";
-    Blockly.Arduino.setups_["setup_button_" + pin] = "pinMode(" + pin + ", OUTPUT);";
+    Blockly.Arduino.setups_["pinMode_output_" + pin] = "pinMode(" + pin + ", OUTPUT);";
     if (a.getFieldValue("TYPE") == "with") {
         if (["A7", "A9", "A10", "3", "5", "6", "9", "10", "11", "13"].includes(pin)) {
             return "analogWrite(" + pin + ", " + sig + ");\n"
@@ -141,7 +141,7 @@ Blockly.Arduino.port_ledRGB = function (a) {
 Blockly.Arduino.port_flashlight = function (a) {
     let pin = generator["default"].port[a.getFieldValue("PORT")][0];
     let sig = Blockly.Arduino.valueToCode(a, "LIGHT", Blockly.Arduino.ORDER_ATOMIC) || "1024";
-    Blockly.Arduino.setups_["setup_button_" + pin] = "pinMode(" + pin + ", OUTPUT);";
+    Blockly.Arduino.setups_["pinMode_output_" + pin] = "pinMode(" + pin + ", OUTPUT);";
     if (a.getFieldValue("TYPE") == "with") {
         if (["A7", "A9", "A10", "3", "5", "6", "9", "10", "11", "13"].includes(pin)) {
             return "analogWrite(" + pin + ", " + sig + ");\n"
@@ -165,7 +165,7 @@ Blockly.Arduino.port_buzzer = function (a) {
     let pin = generator["default"].port[a.getFieldValue("PORT")][0],
         opt = a.getFieldValue("OPTIONS"),
         TIMER = a.getFieldValue("TIMER");
-    Blockly.Arduino.setups_["setup_button_" + pin] = "pinMode(" + pin + ", OUTPUT);";
+    Blockly.Arduino.setups_["pinMode_output_" + pin] = "pinMode(" + pin + ", OUTPUT);";
     if (TIMER === "Timer1") {
         Blockly.Arduino.setups_["setup_timer1_init"] = "Timer1.initialize(10);";
         Blockly.Arduino.definitions_.define_TimerOne_h = "#include <TimerOne.h>";
@@ -195,6 +195,7 @@ Blockly.Arduino.port_buzzer = function (a) {
 Blockly.Arduino.port_controller_buzzer = function (a) {
     let TYPE = a.getFieldValue("TYPE"),
         pin = "MISO";
+    Blockly.Arduino.setups_["pinMode_output_" + pin] = "pinMode(" + pin + ", OUTPUT);";
     if (TYPE == "tone") {
         let HZ = Blockly.Arduino.valueToCode(a, "HZ", Blockly.Arduino.ORDER_ATOMIC) || "1";
         return "tone(" + pin + ", " + HZ + ");\n"
@@ -327,7 +328,7 @@ Blockly.Arduino.port_servo = function (a) {
            // return MS_FOR_ROTATE + "servo" + SERVO + ".setSpeed(" + SPEED[0] + ");\nturnTimer_evolvector = millis();\nservoTimer_evolvector = millis();\nwhile (millis() - turnTimer_evolvector <= msRotate_evolvector) {\n  if (millis() - servoTimer_evolvector >= " + SPEED[1] + ") {\n    servoTimer_evolvector += " + SPEED[1] + ";\n    servo" + SERVO + ".tickManual();\n    servo" + SERVO + ".setTargetDeg(" + ANGLE + ");\n  }\n}\n"
            return FUNC_ROTATE;
         } else if (TYPE == "rotateWithoutTimer") {
-            Blockly.Arduino.setups_["setup_button_" + SERVO] = "pinMode(" + SERVO + ", OUTPUT);";
+            Blockly.Arduino.setups_["pinMode_output_" + SERVO] = "pinMode(" + SERVO + ", OUTPUT);";
             let DO = '  angle_evolvector=map(angle, 0, 180, 550, 2400);\n  for (int count = 0; count<5; count++) {\n    digitalWrite(pin, HIGH);\n    delayMicroseconds(angle_evolvector);\n    digitalWrite(pin, LOW);\n    delayMicroseconds(21000 - angle_evolvector);\n  }\n'
             Blockly.Arduino.definitions_["define_void_servo_set_evolvector"] = "void servo_set_evolvector(int pin, int angle_evolvector) {\n" + DO + "\n}\n"
             return "servo_set_evolvector(" + SERVO + ", " + ANGLE + ");\n"
@@ -352,14 +353,14 @@ Blockly.Arduino.port_rotateServo360 = function (a) {
 
 Blockly.Arduino.inout_buildin_led = function () {
     var a = this.getFieldValue("STAT");
-    Blockly.Arduino.setups_["setup_output_" + a] = "pinMode(" + a + ", OUTPUT);";
+    Blockly.Arduino.setups_["pinMode_output_" + a] = "pinMode(" + a + ", OUTPUT);";
     return "digitalWrite(13, " + a + ");\n"
 };
 
 Blockly.Arduino.inout_digital_write = function (a) {
     var a = generator["default"].port[a.getFieldValue("PORT")][0],
         b = Blockly.Arduino.valueToCode(this, "STAT", Blockly.Arduino.ORDER_ATOMIC) || "HIGH";
-    Blockly.Arduino.setups_["setup_output_" + a] = "pinMode(" + a + ", OUTPUT);";
+    Blockly.Arduino.setups_["pinMode_output_" + a] = "pinMode(" + a + ", OUTPUT);";
     return "digitalWrite(" + a + ", " + b + ");\n"
 };
 Blockly.Arduino.inout_digital_read = function (a) {
@@ -377,12 +378,12 @@ Blockly.Arduino.inout_analog_read = function (a) {
 };
 Blockly.Arduino.inout_tone = function () {
     var a = generator["default"].port[a.getFieldValue("PORT")][1], b = Blockly.Arduino.valueToCode(this, "NUM", Blockly.Arduino.ORDER_ATOMIC);
-    Blockly.Arduino.setups_["setup_output" + a] = "pinMode(" + a + ", OUTPUT);";
+    Blockly.Arduino.setups_["pinMode_output_" + a] = "pinMode(" + a + ", OUTPUT);";
     return "tone(" + a + ", " + b + ");"
 };
 Blockly.Arduino.inout_notone = function () {
     var a = generator["default"].port[a.getFieldValue("PORT")][1];
-    Blockly.Arduino.setups_["setup_output" + a] = "pinMode(" + a + ", OUTPUT);";
+    Blockly.Arduino.setups_["pinMode_output_" + a] = "pinMode(" + a + ", OUTPUT);";
     return "noTone(" + a + ");"
 };
 Blockly.Arduino.inout_highlow = function () {
