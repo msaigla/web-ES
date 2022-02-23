@@ -2207,6 +2207,7 @@
     Blockly.Themes = {};
     Blockly.Themes.Classic = {};
     Blockly.Themes.Classic.defaultBlockStyles = {
+        terminal_blocks: {colourPrimary: "#333"},
         colour_blocks: {colourPrimary: "20"},
         list_blocks: {colourPrimary: "260"},
         logic_blocks: {colourPrimary: "210"},

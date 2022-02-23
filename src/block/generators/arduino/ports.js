@@ -33,7 +33,7 @@ Blockly.Arduino.port_barometer = function (a) {
 
 Blockly.Arduino.port_ir_read = function (a) {
     var sw = generator["default"].port[a.getFieldValue("PORT")][0];
-    let DO = '  if (irrecv.decode(&results))\n  {\n    res=results.value;\n    irrecv.resume();\n    return(res);\n  }\n  else\n  {\n    return(0);\n  }'
+    let DO = '  if (irrecv.decode(&results_irrecv))\n  {\n     res_ir_evolvector=results_irrecv.value;\n    irrecv.resume();\n    return(res_ir_evolvector);\n  }\n  else\n  {\n    return(0);\n  }'
     Blockly.Arduino.definitions_.define_IRremote="#include <IRremote.h>\n";
     Blockly.Arduino.definitions_["define_read_ir_evolvector"] = "int read_ir_evolvector() {\n" + DO + "\n}\n";
     if (!Blockly.Arduino.definitions_.variables.includes("IRrecv irrecv")) {

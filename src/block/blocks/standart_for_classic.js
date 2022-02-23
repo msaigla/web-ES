@@ -377,7 +377,7 @@ Blockly.Blocks.classic_port_buzzer = {
                 .appendField("Состояние звукоизлучателя:")
                 .appendField(new Blockly.FieldDropdown([
                     ["включен", "tone"], 
-                    ["Включить на время", "toneTime"],
+                    ["включить на время", "toneTime"],
                     ["выключен", "noTone"]
                 ], this.validator), "OPTIONS");
             this.appendDummyInput("PINS")

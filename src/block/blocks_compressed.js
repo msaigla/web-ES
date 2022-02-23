@@ -282,6 +282,11 @@ var profile = {
             ["пина 37", "37"],
             ["пина 38", "38"],
             ["пина 40", "40"]
+        ],
+        pwm: [
+            ["пин 12", "12"],
+            ["пин 32", "32"],
+            ["пин 33", "33"]
         ]
     }
 };
@@ -2164,7 +2169,7 @@ profile["default"] = profile.classic;
                 args0: [{type: "input_value", name: "TEXT"}],
                 previousStatement: null,
                 nextStatement: null,
-                style: "text_blocks",
+                style: "terminal_blocks",
                 tooltip: Blockly.Msg.TEXT_PRINT_TOOLTIP,
                 helpUrl: Blockly.Msg.TEXT_PRINT_HELPURL
             })
@@ -2174,7 +2179,7 @@ profile["default"] = profile.classic;
         init: function () {
             var a = [[Blockly.Msg.TEXT_PROMPT_TYPE_TEXT, "TEXT"], [Blockly.Msg.TEXT_PROMPT_TYPE_NUMBER, "NUMBER"]];
             this.setHelpUrl(Blockly.Msg.TEXT_PROMPT_HELPURL);
-            this.setStyle("text_blocks");
+            this.setStyle("terminal_blocks");
             var b = this;
             a = new Blockly.FieldDropdown(a, function (c) {
                 b.updateType_(c)

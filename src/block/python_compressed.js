@@ -746,9 +746,9 @@
         return "print(" + (Blockly.Python.valueToCode(a, "TEXT", Blockly.Python.ORDER_NONE) || "''") + ")\n"
     };
     Blockly.Python.text_prompt_ext = function (a) {
-        var b = Blockly.Python.provideFunction_("text_prompt", ["def " + Blockly.Python.FUNCTION_NAME_PLACEHOLDER_ + "(msg):", "  try:", "    return raw_input(msg)", "  except NameError:", "    return input(msg)"]),
-            c = a.getField("TEXT") ? Blockly.Python.quote_(a.getFieldValue("TEXT")) : Blockly.Python.valueToCode(a, "TEXT", Blockly.Python.ORDER_NONE) || "''";
-        b = b + "(" + c + ")";
+        // var b = Blockly.Python.provideFunction_("text_prompt", ["def " + Blockly.Python.FUNCTION_NAME_PLACEHOLDER_ + "(msg):", "  try:", "    return raw_input(msg)", "  except NameError:", "    return input(msg)"]),
+        var c = a.getField("TEXT") ? Blockly.Python.quote_(a.getFieldValue("TEXT")) : Blockly.Python.valueToCode(a, "TEXT", Blockly.Python.ORDER_NONE) || "''";
+        var b = "input(" + c + ")";
         "NUMBER" == a.getFieldValue("TYPE") && (b = "float(" + b + ")");
         return [b, Blockly.Python.ORDER_FUNCTION_CALL]
     };

@@ -63,3 +63,16 @@ Blockly.Blocks.rpi_gpioWrite = {
         this.setNextStatement(!0, null);
     }
 };
+
+Blockly.Blocks.rpi_pwm = {
+    helpUrl: "",
+    init: function () {
+        this.setColour("#964b00");
+        this.appendValueInput("FREQUENCY")
+            .appendField("Контакт(пин) с ШИМ")
+            .appendField(new Blockly.FieldDropdown(profile["default"].pwm), "CONN");
+        this.setTooltip("");
+        this.setPreviousStatement(!0, null);
+        this.setNextStatement(!0, null);
+    }
+};

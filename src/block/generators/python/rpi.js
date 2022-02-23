@@ -25,3 +25,10 @@ Blockly.Python.rpi_gpioRead = function () {
     Blockly.Python.setups_["GPIO.setmode(GPIO.BCM)"] = "GPIO.setmode(GPIO.BCM)";
     return ["GPIO.input(" + a + ")", Blockly.Python.ORDER_ATOMIC]
 };
+
+Blockly.Python.rpi_pwm = function () {
+    var a = this.getFieldValue("CONN"),
+        FREQUENCY = Blockly.Python.valueToCode(this, "FREQUENCY", Blockly.Python.ORDER_ATOMIC) || "0";
+    Blockly.Python.definitions_.import_RPi_GPIO_as_GPIO="import RPi.GPIO as GPIO";
+    return ["pwm_" + a + " = GPIO.PWM(" + a + ", " + FREQUENCY + ")\npwm_" + a + ".start(50)", Blockly.Python.ORDER_ATOMIC]
+};
