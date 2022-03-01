@@ -159,6 +159,8 @@ Blockly.Blocks.classic_port_charecterDisplay = {
     updateDisplay: function(value) {
         this.removeInput("TEXT", /* no error */ true);
         this.removeInput("LIGHT", /* no error */ true);
+        this.removeInput("ROW", /* no error */ true);
+        this.removeInput("COL", /* no error */ true);
         if (value == "text") {
             this.appendValueInput("ROW", ["Int", "Float", "Number", "unsigned int", "long", "double"])
                 .setAlign(Blockly.ALIGN_RIGHT)
