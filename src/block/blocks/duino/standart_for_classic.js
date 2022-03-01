@@ -160,32 +160,14 @@ Blockly.Blocks.classic_port_charecterDisplay = {
         this.removeInput("TEXT", /* no error */ true);
         this.removeInput("LIGHT", /* no error */ true);
         if (value == "text") {
+            this.appendValueInput("ROW", ["Int", "Float", "Number", "unsigned int", "long", "double"])
+                .setAlign(Blockly.ALIGN_RIGHT)
+                .appendField("Вывести в строке");
+            this.appendValueInput("COL", ["Int", "Float", "Number", "unsigned int", "long", "double"])
+                .setAlign(Blockly.ALIGN_RIGHT)
+                .appendField("с символа №");
             this.appendValueInput("TEXT", ["String"])
                 .setAlign(Blockly.ALIGN_RIGHT)
-                .appendField("Вывести в строке")
-                .appendField(new Blockly.FieldDropdown([
-                    ["1", "0"],
-                    ["2", "1"]
-                ]), "ROW")
-                .appendField("с символа №")
-                .appendField(new Blockly.FieldDropdown([
-                    ["1", "0"],
-                    ["2", "1"],
-                    ["3", "2"],
-                    ["4", "3"],
-                    ["5", "4"],
-                    ["6", "5"],
-                    ["7", "6"],
-                    ["8", "7"],
-                    ["9", "8"],
-                    ["10", "9"],
-                    ["11", "10"],
-                    ["12", "11"],
-                    ["13", "12"],
-                    ["14", "13"],
-                    ["15", "14"],
-                    ["16", "15"]
-                ]), "COL")
                 .appendField(new Blockly.FieldDropdown([
                     ["русский", "ru"],
                     ["английский", "en"],

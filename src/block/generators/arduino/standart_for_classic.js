@@ -84,13 +84,13 @@ Blockly.Arduino.classic_port_charecterDisplay = function (a) {
         let LANG = a.getFieldValue("LANG");
         if (LANG == "ru") {
             let TEXT = Blockly.Arduino.valueToCode(a, "TEXT", Blockly.Arduino.ORDER_ATOMIC) || "",
-                ROW = a.getFieldValue("ROW"),
-                COL = a.getFieldValue("COL");
+                ROW = Blockly.Arduino.valueToCode(a, "ROW", Blockly.Arduino.ORDER_ATOMIC) || "1",
+                COL = Blockly.Arduino.valueToCode(a, "COL", Blockly.Arduino.ORDER_ATOMIC) || "1";
             return "OLED_evolvector.setCursor(" + COL + ", " + ROW + ");\nOLED_evolvector.outStr(" + TEXT + ");\n"
         } else if (LANG == "en") {
             let TEXT = Blockly.Arduino.valueToCode(a, "TEXT", Blockly.Arduino.ORDER_ATOMIC) || "",
-            ROW = a.getFieldValue("ROW"),
-            COL = a.getFieldValue("COL");
+                ROW = Blockly.Arduino.valueToCode(a, "ROW", Blockly.Arduino.ORDER_ATOMIC) || "1",
+                COL = Blockly.Arduino.valueToCode(a, "COL", Blockly.Arduino.ORDER_ATOMIC) || "1";
             return "OLED_evolvector.setCursor(" + COL + ", " + ROW + ");\nOLED_evolvector.print(" + TEXT + ");\n"
         }
     } else if (TYPE == "clear") {

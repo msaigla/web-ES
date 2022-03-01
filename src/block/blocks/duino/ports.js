@@ -155,35 +155,19 @@ Blockly.Blocks.port_charecterDisplay = {
         this.setTooltip("Блок выполняет вывод текста на символьный жидкокристаллический экран (2 строки по 16 символов), очистку экрана от текста, настройку его подсветки или же сдвиг текста на один символ вправо или влево (режим выбирается в выпадающем меню сверху). Вывод текста возможен на английском и русском языках. При этом поддерживается выбор места на экране, с которого должен начинаться текст (осуществляется с помощью меню выбора строки и номера символа, с которого начинается вывод). Выводимый текст присоединяется справа отдельным блоком. Он может быть в формате переменной с типами: int, unsigned int, string.")
     },
     updateDisplay: function(value) {
+        this.removeInput("ROW", /* no error */ true);
+        this.removeInput("COL", /* no error */ true);
         this.removeInput("TEXT", /* no error */ true);
         this.removeInput("LIGHT", /* no error */ true);
         if (value == "text") {
+            this.appendValueInput("ROW", ["Int", "Float", "Number", "unsigned int", "long", "double"])
+                .setAlign(Blockly.ALIGN_RIGHT)
+                .appendField("Вывести в строке");
+            this.appendValueInput("COL", ["Int", "Float", "Number", "unsigned int", "long", "double"])
+                .setAlign(Blockly.ALIGN_RIGHT)
+                .appendField("с символа №");
             this.appendValueInput("TEXT", ["String"])
                 .setAlign(Blockly.ALIGN_RIGHT)
-                .appendField("Вывести в строке")
-                .appendField(new Blockly.FieldDropdown([
-                    ["1", "0"],
-                    ["2", "1"]
-                ]), "ROW")
-                .appendField("с символа №")
-                .appendField(new Blockly.FieldDropdown([
-                    ["1", "0"],
-                    ["2", "1"],
-                    ["3", "2"],
-                    ["4", "3"],
-                    ["5", "4"],
-                    ["6", "5"],
-                    ["7", "6"],
-                    ["8", "7"],
-                    ["9", "8"],
-                    ["10", "9"],
-                    ["11", "10"],
-                    ["12", "11"],
-                    ["13", "12"],
-                    ["14", "13"],
-                    ["15", "14"],
-                    ["16", "15"]
-                ]), "COL")
                 .appendField(new Blockly.FieldDropdown([
                     ["русский", "ru"],
                     ["английский", "en"],
