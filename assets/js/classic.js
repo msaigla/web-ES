@@ -42,7 +42,6 @@ var onresize = function (e) {
         y += element.offsetTop;
         element = element.offsetParent;
     } while (element);
-    console.log(x + " " + y);
     // Position blocklyDiv over blocklyArea.
     blocklyDiv.style.left = '0';
     blocklyDiv.style.top = '0';
@@ -152,6 +151,7 @@ function saveCode() {
 function save() {
     var xml = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);
     var data = Blockly.Xml.domToText(xml);
+    data = "<!--Система Вертор Классик-->\n" + data;
     var fileName = window.prompt('Как бы вы хотели назвать свой файл?', 'Evolvector');
     if(fileName){
         var blob = new Blob([data], {type: 'text/xml'});
@@ -210,7 +210,8 @@ function load(event) {
       // 2 == FileReader.DONE
       if (target.readyState == 2) {
         try {
-          var xml = Blockly.Xml.textToDom(target.result);
+            var sys = target.result.split('\n')[0];
+            var xml = Blockly.Xml.textToDom(target.result);
         } catch (e) {
           alert('Ошибка при анализе XML:\n' + e);
           return;
@@ -222,7 +223,7 @@ function load(event) {
         try {
             Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, xml);
         } catch(err) {
-            alert("Ошибка\n Проверьте правильность выбранной Системы Вертор!")
+            alert("Ошибка\n Проверьте правильность выбранной Системы Вертор! Файл для системы " + sys)
             return;
         }
       }
