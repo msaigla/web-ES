@@ -72,7 +72,7 @@ Blockly.Arduino.port_line_digital = function (a) {
 
 Blockly.Arduino.port_sonic = function (a) {
     var PIN0 = generator["default"].port[a.getFieldValue("PORT")][1],
-        PIN1 = generator["default"].port[a.getFieldValue("PORT")][0];;
+        PIN1 = generator["default"].port[a.getFieldValue("PORT")][0];
     Blockly.Arduino.definitions_.define_SonicRangeEv="#include <SonicRangeEv.h>";
     if (!Blockly.Arduino.definitions_.variables.includes("SonicRangeEv sonic_" + PIN0 + "_" + PIN1 + "_evolvector")) {
         Blockly.Arduino.definitions_.variables = "SonicRangeEv sonic_" + PIN0 + "_" + PIN1 + "_evolvector = SonicRangeEv(" + PIN0 + ", " + PIN1 + ");\n" +

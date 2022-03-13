@@ -63,7 +63,7 @@ Blockly.Blocks.port_button = {
             ]), "COLOR")
             .appendField("Тактовая кнопка");
         this.appendDummyInput()
-            .appendField("Подключена к порту ")
+            .appendField("Подключена к порту")
             .appendField(new Blockly.FieldDropdown(profile["default"].port), "PORT");
         this.setOutput(!0, "Boolean");
         this.setTooltip("Блок возвращает логическое значение параметра, описывающего состояние тактовой кнопки. Параметр состояния принимает значение 1 при нажатии на кнопку и 0 в случае, если кнопка отпущена. Данное значение можно присваивать только переменной типа boolean.");
