@@ -299,7 +299,7 @@ Blockly.Blocks.classic_line_analog = {
     updateLineAnalog: function(value) {
         this.removeInput("P", true);
         if (value == "controller") {
-            this.appendDummyInput()
+            this.appendDummyInput("P")
                 .appendField("Контакт А подключен к")
                 .appendField(new Blockly.FieldDropdown(profile.classic.analog), "PIN");
         }
@@ -329,7 +329,7 @@ Blockly.Blocks.port_line_digital = {
     updateLineDigital: function(value) {
         this.removeInput("P", true);
         if (value == "controller") {
-            this.appendDummyInput()
+            this.appendDummyInput("P")
                 .appendField("Подключен к порту")
                 .appendField(new Blockly.FieldDropdown(profile["default"].port), "PORT");
         }
@@ -359,7 +359,7 @@ Blockly.Blocks.port_line_analog = {
     updateLineAnalog: function(value) {
         this.removeInput("P", true);
         if (value == "controller") {
-            this.appendDummyInput()
+            this.appendDummyInput("P")
                 .appendField("Подключен к порту")
                 .appendField(new Blockly.FieldDropdown(profile["default"].port), "PORT");
         }
@@ -389,9 +389,134 @@ Blockly.Blocks.port_sonic = {
     updateSonic: function(value) {
         this.removeInput("P", true);
         if (value == "controller") {
-            this.appendDummyInput()
+            this.appendDummyInput("P")
                 .appendField("Подключен к порту")
                 .appendField(new Blockly.FieldDropdown(profile.standart.sonic), "PORT");
+        }
+    }
+};
+
+Blockly.Blocks.port_dht = {
+    helpUrl: "", 
+    validator: function(value) {
+        this.getSourceBlock().updateDHT(value);
+        return value;
+    },
+    init: function () {
+        this.setColour("#4682B4");
+        this.appendDummyInput()
+            .appendField(new Blockly.FieldImage("assets/img/components/sensors/Датчик температуры и влажности (DHT-11) ВЭЛ10.139.png", 64, 40))
+            .appendField("Датчик температуры и влажности (DHT-11)");
+        this.appendDummyInput()
+            .appendField("Читать с")
+            .appendField(new Blockly.FieldDropdown([
+                ["Контроллер", "controller"],
+                ["RPI интерфейс", "RPI"]
+            ], this.validator), "TYPE");
+        this.setOutput(!0, ["Int", "Float", "Number", "unsigned int", "long", "double"]);
+        this.setTooltip("Блок возвращает числовое значение параметра, выбранного из выпадающего списка. Для температуры числовое значение соответствует градусам Цельсия, а влажность выражается в процентах. Указанные числовые значения параметров можно присваивать переменным следующих типов: int, float, long.")
+    },
+    updateDHT: function(value) {
+        this.removeInput("P", true);
+        if (value == "controller") {
+            this.appendDummyInput("P")
+                .appendField("Подключен к порту")
+                .appendField(new Blockly.FieldDropdown(profile.standart.port), "PORT")
+                .appendField(new Blockly.FieldDropdown([
+                    ["определить влажность", "readHumidity()"], 
+                    ["определить температуру", "readTemperature()"]
+                ]), "OPTIONS");
+        }
+    }
+};
+
+Blockly.Blocks.port_opt_encoder = {
+    helpUrl: "",
+    validator: function(value) {
+        this.getSourceBlock().updateOptEnc(value);
+        return value;
+    },
+    init: function () {
+        this.setColour("#4682B4");
+        this.appendDummyInput()
+            .appendField(new Blockly.FieldImage("assets/img/components/sensors/ВЭЛ10.122 Модуль оптический энкодер.png", 64, 40))
+            .appendField("Оптический энкодер для мотора");
+        this.appendDummyInput()
+            .appendField("Читать с")
+            .appendField(new Blockly.FieldDropdown([
+                ["Контроллер", "controller"],
+                ["RPI интерфейс", "RPI"]
+            ], this.validator), "TYPE");
+        this.setOutput(!0, ["Int", "Float", "Number", "unsigned int", "long", "double", "Boolean"]);
+        this.setTooltip("Блок возвращает логическое значение параметра, описывающего наличие под фоточувствительным элементом датчика белого или черного сектора диска, вращающегося на валу мотор-редуктора. Параметр состояния принимает значение 1, если под датчиком находится белый цвет, и 0, если цвет черный.\nС одной стороны диска нанесены 36 секторов (18 белых и 18 черных), а с другой — 24 сектора (12 черных и 12 белых). Таким образом, одно переключение с черного на белый цвет соответствует повороту выходного вала мотор-редуктора на 10 или 15 градусов в зависимости от стороны диска. Рекомендуемое расстояние от датчика до поверхности диска от 3 до 5 мм.");
+    },
+    updateOptEnc: function(value) {
+        this.removeInput("P", true);
+        if (value == "controller") {
+            this.appendDummyInput("P")
+                .appendField("Подключен к порту")
+                .appendField(new Blockly.FieldDropdown(profile.standart.port), "PORT");
+        }
+    }
+};
+
+Blockly.Blocks.port_ir_read = {
+    helpUrl: "",
+    validator: function(value) {
+        this.getSourceBlock().updateIR(value);
+        return value;
+    },
+    init: function () {
+        this.setColour("#4682B4");
+        this.appendDummyInput()
+            .appendField(new Blockly.FieldImage("assets/img/components/drivers/ВЭЛ10.163 ИК приемник.png", 64, 40))
+            .appendField("Приемник ИК-сигнала");
+        this.appendDummyInput()
+            .appendField("Читать с")
+            .appendField(new Blockly.FieldDropdown([
+                ["Контроллер", "controller"],
+                ["RPI интерфейс", "RPI"]
+            ], this.validator), "TYPE");
+        this.setOutput(!0, ["Int", "Float", "Number", "unsigned int", "long", "double"]);
+        this.setTooltip("Блок возвращает числовой код, состоящий из нескольких цифр и соответствующий принятому сигналу от инфракрасного пульта дистанционного управления или иного источника инфракрасного сигнала. Данный код имеет разный набор цифр для разных кнопок на ИК-пульте. Полученный числовой код можно присваивать переменным следующих типов:  int, long.");
+    },
+    updateIR: function(value) {
+        this.removeInput("P", true);
+        if (value == "controller") {
+            this.appendDummyInput("P")
+                .appendField("Подключен к порту")
+                .appendField(new Blockly.FieldDropdown(profile.standart.port), "PORT");
+        }
+    }
+};
+
+Blockly.Blocks.port_potentiometer = {
+    helpUrl: "", 
+    validator: function(value) {
+        this.getSourceBlock().updatePotentiometer(value);
+        return value;
+    },
+    init: function () {
+        this.setColour("#4682B4");
+        this.appendDummyInput()
+            .appendField(new Blockly.FieldImage("assets/img/components/drivers/Потенциометр 10 кОм ВЭЛ10.110.png", 64, 40))
+            .appendField("Потенциометр");
+        this.appendDummyInput()
+            .appendField("Читать с")
+            .appendField(new Blockly.FieldDropdown([
+                ["Контроллер", "controller"],
+                ["RPI интерфейс", "RPI"]
+            ], this.validator), "TYPE");
+        this.setOutput(!0, ["Int", "Float", "Number", "unsigned int", "long", "double"]);
+        this.setTooltip("Блок возвращает числовое значение параметра, описывающего угол поворота ручки потенциометра. Параметр состояния принимает значение из диапазона от 0 до 1023, в зависимости от угла поворота ручки. Значение 0 соответствует углу поворота 0 градусов, а 1023 соответствует углу 270 градусов. Промежуточные значения углов пересчитываются пропорционально. Данное значение можно присваивать переменным следующих типов: unsigned int, int, float, long.")
+    },
+    updatePotentiometer: function(value) {
+        this.removeInput("P", true);
+        if (value == "controller") {
+            this.appendDummyInput("P")
+                .setAlign(Blockly.ALIGN_RIGHT)
+                .appendField("Подключен к порту")
+                .appendField(new Blockly.FieldDropdown(profile.standart.port), "PORT")
         }
     }
 };
