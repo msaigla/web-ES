@@ -85,8 +85,8 @@ Blockly.Blocks.asset_timerPWM = {
             ], this.validator), "TIMER")
         this.appendDummyInput("TONE")
             .appendField(new Blockly.FieldDropdown([
-                ["включен", "tone"], 
-                ["выключен", "noTone"]
+                ["включить", "tone"], 
+                ["выключить", "noTone"]
             ], this.validator), "OPTIONS")
             .appendField("ШИМ-сигнал на контакте");
         this.setTooltip("Блок генерирует сигнал с широтно-импульсной модуляцией под управлением Таймера 1 или Таймера 2, выбор между которыми производится в выпадающем меню. При указании состояния «выключен» генерация ШИМ-сигнала прекращается. В случае выбора состояния «включен» с помощью дополнительных блоков справа (числовых или переменных) устанавливаются значения частоты сигнала и его и скважности (влияет на амплитуду сигнала). Частота задается в диапазоне от 0 до 15000 Гц, а скважность от 0 до 100 %.");
@@ -104,8 +104,8 @@ Blockly.Blocks.asset_timerPWM = {
             this.removeInput('TONE', /* no error */ true);
             this.appendDummyInput("TONE")
                 .appendField(new Blockly.FieldDropdown([
-                    ["включен", "tone"], 
-                    ["выключен", "noTone"]
+                    ["включить", "tone"], 
+                    ["выключить", "noTone"]
                 ], this.validator), "OPTIONS")
                 .appendField("ШИМ-сигнал на контакте");
             this.appendDummyInput("PINS")
@@ -126,8 +126,8 @@ Blockly.Blocks.asset_timerPWM = {
             this.removeInput('TONE', true);
             this.appendDummyInput("TONE")
                 .appendField(new Blockly.FieldDropdown([
-                    ["включен", "tone"],
-                    ["выключен", "noTone"]
+                    ["включить", "tone"],
+                    ["выключить", "noTone"]
                 ], this.validator), "OPTIONS")
                 .appendField("ШИМ-сигнал на контакте");;
             this.appendDummyInput("PINS")
