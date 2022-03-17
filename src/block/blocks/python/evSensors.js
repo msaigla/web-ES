@@ -12,7 +12,7 @@ Blockly.Blocks.port_photoresistor = {
             .appendField(new Blockly.FieldImage("assets/img/components/sensors/ВЭЛ10.113 Модуль фоторезистор.png", 64, 40))
             .appendField("Фоторезистор");
         this.appendDummyInput()
-            .appendField("Читать с")
+            .appendField("Подключен через")
             .appendField(new Blockly.FieldDropdown([
                 ["Контроллер", "controller"],
                 ["RPI интерфейс", "RPI"]
@@ -38,7 +38,7 @@ Blockly.Blocks.port_barometer = {
             .appendField(new Blockly.FieldImage("assets/img/components/sensors/Барометр ВЭЛ10.282.png", 64, 40))
             .appendField("Барометр");
         this.appendDummyInput()
-            .appendField("Читать с")
+            .appendField("Подключен через")
             .appendField(new Blockly.FieldDropdown([
                 ["Контроллер", "controller"],
                 ["RPI интерфейс", "RPI"]
@@ -73,7 +73,7 @@ Blockly.Blocks.classic_five_button_one = {
             ]), "NUMBER")
         .appendField("5 тактовых кнопок");
         this.appendDummyInput()
-            .appendField("Читать с")
+            .appendField("Подключен через")
             .appendField(new Blockly.FieldDropdown([
                 ["Контроллер", "controller"],
                 ["RPI интерфейс", "RPI"]
@@ -104,7 +104,7 @@ Blockly.Blocks.classic_five_button_all = {
             .appendField(new Blockly.FieldImage("assets/img/components/sensors/ВЭЛ10.251 Модуль 5 тактовых кнопок.png", 64, 40))
             .appendField("5 тактовых кнопок");
         this.appendDummyInput()
-            .appendField("Читать с")
+            .appendField("Подключен через")
             .appendField(new Blockly.FieldDropdown([
                 ["Контроллер", "controller"],
                 ["RPI интерфейс", "RPI"]
@@ -161,7 +161,7 @@ Blockly.Blocks.port_button = {
             ]), "COLOR")
             .appendField("Тактовая кнопка");
         this.appendDummyInput()
-            .appendField("Читать с")
+            .appendField("Подключен через")
             .appendField(new Blockly.FieldDropdown([
                 ["Контроллер", "controller"],
                 ["RPI интерфейс", "RPI"]
@@ -191,7 +191,7 @@ Blockly.Blocks.port_limit_switch = {
             .appendField(new Blockly.FieldImage("assets/img/components/sensors/ВЭЛ10.125 Модуль концевой выключатель.png", 64, 40))
             .appendField("Концевой выключатель");
         this.appendDummyInput()
-            .appendField("Читать с")
+            .appendField("Подключен через")
             .appendField(new Blockly.FieldDropdown([
                 ["Контроллер", "controller"],
                 ["RPI интерфейс", "RPI"]
@@ -221,7 +221,7 @@ Blockly.Blocks.classic_two_axis = {
             .appendField(new Blockly.FieldImage("assets/img/components/sensors/ВЭЛ10.121 Датчик наклона.png", 64, 40))
             .appendField("2-х осевой датчик наклона");
         this.appendDummyInput()
-            .appendField("Читать с")
+            .appendField("Подключен через")
             .appendField(new Blockly.FieldDropdown([
                 ["Контроллер", "controller"],
                 ["RPI интерфейс", "RPI"]
@@ -258,7 +258,7 @@ Blockly.Blocks.classic_line_digital = {
             .appendField(new Blockly.FieldImage("assets/img/components/sensors/ВЭЛ10.155-ЦШ Датчик линии ЦШ.png", 64, 40))
             .appendField("Цифровой датчик линии");
         this.appendDummyInput()
-            .appendField("Читать с")
+            .appendField("Подключен через")
             .appendField(new Blockly.FieldDropdown([
                 ["Контроллер", "controller"],
                 ["RPI интерфейс", "RPI"]
@@ -288,7 +288,7 @@ Blockly.Blocks.classic_line_analog = {
             .appendField(new Blockly.FieldImage("assets/img/components/sensors/ВЭЛ10.155-АШ Датчик линии АШ.png", 64, 40))
             .appendField("Аналоговый датчик линии");
         this.appendDummyInput()
-            .appendField("Читать с")
+            .appendField("Подключен через")
             .appendField(new Blockly.FieldDropdown([
                 ["Контроллер", "controller"],
                 ["RPI интерфейс", "RPI"]
@@ -318,7 +318,7 @@ Blockly.Blocks.port_line_digital = {
             .appendField(new Blockly.FieldImage("assets/img/components/sensors/ВЭЛ10.155-ЦР Датчик линии ЦР.png", 64, 40))
             .appendField("Цифровой датчик линии");
         this.appendDummyInput()
-            .appendField("Читать с")
+            .appendField("Подключен через")
             .appendField(new Blockly.FieldDropdown([
                 ["Контроллер", "controller"],
                 ["RPI интерфейс", "RPI"]
@@ -348,7 +348,7 @@ Blockly.Blocks.port_line_analog = {
             .appendField(new Blockly.FieldImage("assets/img/components/sensors/ВЭЛ10.155-АР Датчик линии АР.png", 64, 40))
             .appendField("Аналоговый датчик линии");
         this.appendDummyInput()
-            .appendField("Читать с")
+            .appendField("Подключен через")
             .appendField(new Blockly.FieldDropdown([
                 ["Контроллер", "controller"],
                 ["RPI интерфейс", "RPI"]
@@ -378,7 +378,7 @@ Blockly.Blocks.port_sonic = {
             .appendField(new Blockly.FieldImage("assets/img/components/sensors/Ультразвуковой дальномер ВЭЛ10.485.png", 64, 40))
             .appendField("Ультразвуковой дальномер");
         this.appendDummyInput()
-            .appendField("Читать с")
+            .appendField("Подключен через")
             .appendField(new Blockly.FieldDropdown([
                 ["Контроллер", "controller"],
                 ["RPI интерфейс", "RPI"]
@@ -408,7 +408,7 @@ Blockly.Blocks.port_dht = {
             .appendField(new Blockly.FieldImage("assets/img/components/sensors/Датчик температуры и влажности (DHT-11) ВЭЛ10.139.png", 64, 40))
             .appendField("Датчик температуры и влажности (DHT-11)");
         this.appendDummyInput()
-            .appendField("Читать с")
+            .appendField("Подключен через")
             .appendField(new Blockly.FieldDropdown([
                 ["Контроллер", "controller"],
                 ["RPI интерфейс", "RPI"]
@@ -442,7 +442,7 @@ Blockly.Blocks.port_opt_encoder = {
             .appendField(new Blockly.FieldImage("assets/img/components/sensors/ВЭЛ10.122 Модуль оптический энкодер.png", 64, 40))
             .appendField("Оптический энкодер для мотора");
         this.appendDummyInput()
-            .appendField("Читать с")
+            .appendField("Подключен через")
             .appendField(new Blockly.FieldDropdown([
                 ["Контроллер", "controller"],
                 ["RPI интерфейс", "RPI"]
@@ -472,7 +472,7 @@ Blockly.Blocks.port_ir_read = {
             .appendField(new Blockly.FieldImage("assets/img/components/drivers/ВЭЛ10.163 ИК приемник.png", 64, 40))
             .appendField("Приемник ИК-сигнала");
         this.appendDummyInput()
-            .appendField("Читать с")
+            .appendField("Подключен через")
             .appendField(new Blockly.FieldDropdown([
                 ["Контроллер", "controller"],
                 ["RPI интерфейс", "RPI"]
@@ -502,7 +502,7 @@ Blockly.Blocks.port_potentiometer = {
             .appendField(new Blockly.FieldImage("assets/img/components/drivers/Потенциометр 10 кОм ВЭЛ10.110.png", 64, 40))
             .appendField("Потенциометр");
         this.appendDummyInput()
-            .appendField("Читать с")
+            .appendField("Подключен через")
             .appendField(new Blockly.FieldDropdown([
                 ["Контроллер", "controller"],
                 ["RPI интерфейс", "RPI"]

@@ -11,7 +11,7 @@ Blockly.Blocks.classic_L298N = {
             .appendField(new Blockly.FieldImage("assets/img/components/drivers/Драйвер двигателей на основе L298N ВЭЛ10.498.png", 96, 64))
             .appendField("Драйвер двигателей L298N");
         this.appendDummyInput()
-            .appendField("Читать с")
+            .appendField("Подключен через")
             .appendField(new Blockly.FieldDropdown([
                 ["Контроллер", "controller"],
                 ["RPI интерфейс", "RPI"]
@@ -61,7 +61,7 @@ Blockly.Blocks.classic_L298N_speed = {
             .appendField(new Blockly.FieldImage("assets/img/components/drivers/Драйвер двигателей на основе L298N ВЭЛ10.498.png", 96, 64))
             .appendField("Драйвер двигателей L298N с регулировкой скорости");
         this.appendDummyInput()
-            .appendField("Читать с")
+            .appendField("Подключен через")
             .appendField(new Blockly.FieldDropdown([
                 ["Контроллер", "controller"],
                 ["RPI интерфейс", "RPI"]
@@ -112,7 +112,7 @@ Blockly.Blocks.classic_L293D = {
             .appendField(new Blockly.FieldImage("assets/img/components/drivers/ВЭЛ10.493 Драйвер двигателей L293D.png", 96, 64))
             .appendField("Драйвер двигателей L293D");
         this.appendDummyInput()
-            .appendField("Читать с")
+            .appendField("Подключен через")
             .appendField(new Blockly.FieldDropdown([
                 ["Контроллер", "controller"],
                 ["RPI интерфейс", "RPI"]
@@ -162,7 +162,7 @@ Blockly.Blocks.classic_L293D_speed = {
             .appendField(new Blockly.FieldImage("assets/img/components/drivers/ВЭЛ10.493 Драйвер двигателей L293D.png", 96, 64))
             .appendField("Драйвер двигателей L293D с регулировкой скорости");
         this.appendDummyInput()
-            .appendField("Читать с")
+            .appendField("Подключен через")
             .appendField(new Blockly.FieldDropdown([
                 ["Контроллер", "controller"],
                 ["RPI интерфейс", "RPI"]
