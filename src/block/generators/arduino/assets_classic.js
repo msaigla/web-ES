@@ -39,12 +39,33 @@ Blockly.Arduino.asset_timerAttachInterrupt= function (a) {
 };
 Blockly.Arduino.asset_timerPWM = function (a) {
     let pin = a.getFieldValue("PIN"),
-        HZ = Blockly.Arduino.valueToCode(a, "HZ", Blockly.Arduino.ORDER_UNARY_POSTFIX) || 1,
-        VALUE = Blockly.Arduino.valueToCode(a, "VALUE", Blockly.Arduino.ORDER_UNARY_POSTFIX) || 50;
-    Blockly.Arduino.definitions_.define_TimerOne_h = "#include <TimerOne.h>";
-    Blockly.Arduino.setups_["setup_output_" + pin] = "pinMode(" + pin + ", OUTPUT);";
-    Blockly.Arduino.setups_["Timer1.initialize()"] = "Timer1.initialize(50000);";
-    return "Timer1.pwm(" + pin + ", " + VALUE + "*10, 1000000/" + HZ + ");\n"
+        opt = a.getFieldValue("OPTIONS"),
+        TIMER = a.getFieldValue("TIMER");
+    Blockly.Arduino.setups_["setup_button_" + pin] = "pinMode(" + pin + ", OUTPUT);";
+    if (TIMER === "Timer1") {
+        Blockly.Arduino.setups_["setup_timer1_init"] = "Timer1.initialize(10);";
+        Blockly.Arduino.definitions_.define_TimerOne_h = "#include <TimerOne.h>";
+        let DO = '  if(frequince>20)\n  {\n    duty=duty*10;\n    Timer1.pwm(' + pin + ', duty,1000000/frequince);\n  }\n  else\n  {\n    Timer1.disablePwm(' + pin + ');\n  }'
+        Blockly.Arduino.definitions_["define_void_buzzer_evolvector"] = "void buzzer_evolvector(int frequince, float duty) {\n" + DO + "\n}\n";
+        if (opt === "tone") {
+            let HZ = Blockly.Arduino.valueToCode(a, "HZ", Blockly.Arduino.ORDER_ATOMIC) || "1",
+                VALUE = Blockly.Arduino.valueToCode(a, "VALUE", Blockly.Arduino.ORDER_ATOMIC) || "50";
+            return "buzzer_evolvector(" + HZ + ", " + VALUE + ");\n"
+        } else {
+            return "buzzer_evolvector(0, 0);\n"
+        }
+    } else {
+        if (opt === "tone") {
+            let HZ = Blockly.Arduino.valueToCode(a, "HZ", Blockly.Arduino.ORDER_ATOMIC) || "1";
+            return "tone(" + pin + ", " + HZ + ");\n"
+        } else if (opt == "toneTime"){
+            let HZ = Blockly.Arduino.valueToCode(a, "HZ", Blockly.Arduino.ORDER_ATOMIC) || "1",
+                MS = Blockly.Arduino.valueToCode(a, "MS", Blockly.Arduino.ORDER_ATOMIC) || "1000";
+            return "tone(" + pin + ", " + HZ + ", " + MS + ");\n"
+        } else {
+            return "noTone(" + pin + ");\n"
+        }
+    }
 };
 Blockly.Arduino.asset_timerPeriod = function (a) {
     let WAIT = Blockly.Arduino.valueToCode(a, "HZ", Blockly.Arduino.ORDER_UNARY_POSTFIX) || 1,

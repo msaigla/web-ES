@@ -68,22 +68,122 @@ Blockly.Blocks.asset_timerAttachInterrupt = {
         this.setNextStatement(!0, null);
     }
 };
+
 Blockly.Blocks.asset_timerPWM = {
     helpUrl: "",
+    validator: function(value) {
+        this.getSourceBlock().updateTimer(value);
+        return value;
+    },
     init: function () {
         this.setColour("#a5995b");
-        this.appendValueInput("HZ", ["Int", "Float", "Number", "unsigned int", "long", "double"])
-            .appendField("На контакте (пине)")
-            .appendField(new Blockly.FieldDropdown(profile.classic.what), "PIN")
-            .appendField("установить ШИМ-сигнал с частотой");
-        this.appendValueInput("VALUE", ["Int", "Float", "Number", "unsigned int", "long", "double"])
-            .appendField("Гц и скважностью");
         this.appendDummyInput()
-            .appendField("%");
-        this.setTooltip("Блок генерирует сигнал с широтно-импульсной модуляцией на контакте 9 или 10 контроллера под управлением таймера 1. Частота сигнала и его скважность указываются в соответствующих полях. Частоту можно задавать в диапазоне от нескольких десятых до 20000 Гц, скважность в диапазоне от 0,1 до 100%. Одновременно важно контролировать, чтобы никакие другие устройства не работали на таймере 1.");
+            .appendField("Используя таймер")
+            .appendField(new Blockly.FieldDropdown([
+                ["1", "Timer1"], 
+                ["2", "Timer2"]
+            ], this.validator), "TIMER")
+            .appendField("ШИМ-сигнал на контакте");
+        this.setTooltip("Блок генерирует сигнал с широтно-импульсной модуляцией под управлением Таймера 1 или Таймера 2, выбор между которыми производится в выпадающем меню. При указании состояния «выключен» генерация ШИМ-сигнала прекращается. В случае выбора состояния «включен» с помощью дополнительных блоков справа (числовых или переменных) устанавливаются значения частоты сигнала и его и скважности (влияет на амплитуду сигнала). Частота задается в диапазоне от 0 до 15000 Гц, а скважность от 0 до 100 %.");
         this.setInputsInline(true);
         this.setPreviousStatement(!0, null);
         this.setNextStatement(!0, null);
+    },
+    updateTimer: function(value) {
+        this.removeInput('VALUE', /* no error */ true);
+        this.removeInput('MS', /* no error */ true);
+        this.removeInput('HZ', /* no error */ true);
+        this.removeInput('PINS', /* no error */ true);
+        if (value == 'Timer1') {
+            this.TIMER = value;
+            this.removeInput('TONE', /* no error */ true);
+            this.appendDummyInput("TONE")
+                .appendField(new Blockly.FieldDropdown([
+                    ["включен", "tone"], 
+                    ["выключен", "noTone"]
+                ], this.validator), "OPTIONS");
+            this.appendDummyInput("PINS")
+                .appendField(new Blockly.FieldDropdown([
+                    ["9", "9"],
+                    ["10", "10"]
+                ]), "PIN")
+                .appendField(", подать сигнал");
+            this.appendValueInput("HZ", ["Int", "Float", "Number", "unsigned int", "long", "double"])
+                .setAlign(Blockly.ALIGN_RIGHT)
+                .setCheck(["Int", "Float", "Number", "unsigned int", "long", "double"])
+                .appendField("Частота в Гц");
+            this.appendValueInput('VALUE')
+                .setAlign(Blockly.ALIGN_RIGHT)
+                .setCheck(["Int", "Float", "Number", "unsigned int", "long", "double"])
+                .appendField("Скважность");
+        } else if (value == "Timer2") {
+            this.TIMER = value;
+            this.removeInput('TONE', true);
+            this.appendDummyInput("TONE")
+                .appendField("Состояние звукоизлучателя:")
+                .appendField(new Blockly.FieldDropdown([
+                    ["включен", "tone"],
+                    ["выключен", "noTone"]
+                ], this.validator), "OPTIONS");
+            this.appendDummyInput("PINS")
+                .appendField(new Blockly.FieldDropdown(profile.classic.digital), "PIN")
+            this.appendValueInput("HZ", ["Int", "Float", "Number", "unsigned int", "long", "double"])
+                .setAlign(Blockly.ALIGN_RIGHT)
+                .setCheck(["Int", "Float", "Number", "unsigned int", "long", "double"])
+                .appendField("с частотой, Гц");
+        } else if (value == "noTone") {
+            if (this.TIMER === "Timer1") {
+                this.appendDummyInput("PINS")
+                    .appendField("Контакт D подключен к")
+                    .appendField(new Blockly.FieldDropdown([
+                        ["9", "9"],
+                        ["10", "10"]
+                    ]), "PIN");
+            } else {
+                this.appendDummyInput("PINS")
+                    .appendField("Контакт D подключен к")
+                    .appendField(new Blockly.FieldDropdown(profile.classic.digital), "PIN");
+            }
+        } else if (value == "tone") {
+            if (this.TIMER === "Timer1") {
+                this.appendDummyInput("PINS")
+                    .appendField("На контакт D, подключенный к")
+                    .appendField(new Blockly.FieldDropdown([
+                        ["9", "9"],
+                        ["10", "10"]
+                    ]), "PIN")
+                    .appendField(", подать сигнал");
+                this.appendValueInput("HZ", ["Int", "Float", "Number", "unsigned int", "long", "double"])
+                    .setAlign(Blockly.ALIGN_RIGHT)
+                    .setCheck(["Int", "Float", "Number", "unsigned int", "long", "double"])
+                    .appendField("Частота в Гц");
+                this.appendValueInput('VALUE')
+                    .setAlign(Blockly.ALIGN_RIGHT)
+                    .setCheck(["Int", "Float", "Number", "unsigned int", "long", "double"])
+                    .appendField("Скважность");
+            } else {
+                this.appendDummyInput("PINS")
+                    .appendField("На контакт D, подключенный к")
+                    .appendField(new Blockly.FieldDropdown(profile.classic.digital), "PIN")
+                    .appendField(", подать сигнал");
+                this.appendValueInput("HZ", ["Int", "Float", "Number", "unsigned int", "long", "double"])
+                    .setAlign(Blockly.ALIGN_RIGHT)
+                    .setCheck(["Int", "Float", "Number", "unsigned int", "long", "double"])
+                    .appendField("Частота в Гц");
+            }
+        } else if (value == "toneTime") {
+            this.appendValueInput("MS", ["Int", "Float", "Number", "unsigned int", "long", "double"])
+                .setAlign(Blockly.ALIGN_RIGHT)
+                .appendField("мс");
+            this.appendDummyInput("PINS")
+                .appendField("На контакт D, подключенный к")
+                .appendField(new Blockly.FieldDropdown(profile.classic.digital), "PIN")
+                .appendField(", подать сигнал");
+            this.appendValueInput("HZ", ["Int", "Float", "Number", "unsigned int", "long", "double"])
+                .setAlign(Blockly.ALIGN_RIGHT)
+                .setCheck(["Int", "Float", "Number", "unsigned int", "long", "double"])
+                .appendField("Частота в Гц");
+        }
     }
 };
 Blockly.Blocks.asset_timerPeriod = {
