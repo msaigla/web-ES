@@ -127,6 +127,7 @@ Blockly.Blocks.asset_timerPWM = {
             this.appendDummyInput("TONE")
                 .appendField(new Blockly.FieldDropdown([
                     ["включить", "tone"],
+                    ["включить на время", "toneTime"],
                     ["выключить", "noTone"]
                 ], this.validator), "OPTIONS")
                 .appendField("ШИМ-сигнал на контакте");;

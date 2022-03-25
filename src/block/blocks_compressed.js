@@ -1149,6 +1149,17 @@ profile["default"] = profile.classic;
         }
     };
 
+    Blockly.Blocks.loops_continue = {
+        init: function() {
+            this.setColour("#317f43");
+            this.appendDummyInput()
+                .appendField("Перейти к концу цикла");
+            this.setTooltip("Блок выполняет окончание данный круг цикла, независимо от выполнения условий или числа повторений действий, помещенных в цикл.");
+            this.setPreviousStatement(!0, null);
+            this.setNextStatement(!0, null);
+        }
+    };
+
     Blockly.Constants.Loops.WHILE_UNTIL_TOOLTIPS = {
         WHILE: "%{BKY_CONTROLS_WHILEUNTIL_TOOLTIP_WHILE}",
         UNTIL: "%{BKY_CONTROLS_WHILEUNTIL_TOOLTIP_UNTIL}"

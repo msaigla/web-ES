@@ -756,3 +756,21 @@ Blockly.Blocks.serial_read = {
         this.setTooltip("Блок возвращает данные, полученные с каналов Serial (получил название «Монитор порта»), либо Serial1 (UART) в зависимости от того, какой из них выбран в выпадающем меню. Скорость канала, с которой будет выполняться прием данных, также выбирается из выпадающего списка. Полученные данные могут присваиваться переменным типа: string, char, unsigned char.");
     }
 };
+
+Blockly.Blocks.classic_sonic = {
+    helpUrl: "",
+    init: function () {
+        this.setColour("#4682B4");
+        this.appendDummyInput()
+            .appendField(new Blockly.FieldImage("assets/img/components/sensors/Дальномер HC-SR04.png", 64, 40))
+            .appendField("Ультразвуковой дальномер HC-SR04");
+        this.appendDummyInput()
+            .appendField("Контакт TRIG подключен к")
+            .appendField(new Blockly.FieldDropdown(profile.classic.digital), "PIN0");
+        this.appendDummyInput()
+            .appendField("Контакт ECHO подключен к")
+            .appendField(new Blockly.FieldDropdown(profile.classic.digital), "PIN1");
+        this.setOutput(!0, ["Int", "Float", "Number", "unsigned int", "long", "double"]);
+        this.setTooltip('Блок возвращает числовое значение параметра, описывающего расстояние до препятствия в см. Параметр состояния принимает значение из диапазона от 3 до 120, в зависимости от расстояния до объекта. Данное значение можно присваивать переменным следующих типов: unsigned int, int, float, long.');
+    }
+};

@@ -624,6 +624,9 @@ var define_var = ["\n"];
     Blockly.Arduino.loops_break = function (a) {
         return "break;\n";
     }
+    Blockly.Arduino.loops_continue = function (a) {
+        return "continue;\n";
+    }
     Blockly.Arduino.math = {};
     Blockly.Arduino.math_number = function (a) {
         a = Number(a.getFieldValue("NUM"));
@@ -665,6 +668,7 @@ var define_var = ["\n"];
     Blockly.Arduino.math_random = function (a) {
         let MIN = Blockly.Arduino.valueToCode(a, "MIN", Blockly.Arduino.ORDER_MEMBER) || 0; 
         let MAX = Blockly.Arduino.valueToCode(a, "MAX", Blockly.Arduino.ORDER_MEMBER) || 0;
+        Blockly.Arduino.setups_["random_seed_analogRead_A0"] = "randomSeed(analogRead(A0));";
         return  ["random(" + MIN + ", " + MAX + ")", Blockly.Arduino.ORDER_ATOMIC];
     };
     Blockly.Arduino.math_single = function (a) {
