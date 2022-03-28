@@ -342,7 +342,7 @@ Blockly.Arduino.classic_sonic = function (a) {
         PIN1 = a.getFieldValue("PIN1");
     Blockly.Arduino.definitions_.define_SonicRangeEv="#include \"Ultrasonic.h\"";
     if (!Blockly.Arduino.definitions_.variables.includes("Ultrasonic dalnomer_" + PIN0 + "_" + PIN1 + "_evolvector(" + PIN0 + ", " + PIN1 + ")")) {
-        Blockly.Arduino.definitions_.variables = "SonicRangeEv dalnomer_" + PIN0 + "_" + PIN1 + "_evolvector(" + PIN0 + ", " + PIN1 + ");\n" +
+        Blockly.Arduino.definitions_.variables = "Ultrasonic dalnomer_" + PIN0 + "_" + PIN1 + "_evolvector(" + PIN0 + ", " + PIN1 + ");\n" +
                                                 Blockly.Arduino.definitions_.variables;
     }
     return ["dalnomer_" + PIN0 + "_" + PIN1 + "_evolvector.Ranging(CM)", Blockly.Arduino.ORDER_ATOMIC]
