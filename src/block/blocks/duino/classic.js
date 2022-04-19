@@ -285,7 +285,7 @@ Blockly.Blocks.classic_indicator = {
             .appendField("Цифровой индикатор (4 разряда)")
             .appendField(new Blockly.FieldDropdown([
                     ["Инициализация", "init"], 
-                    ["Вывод", "write"],
+                    ["Вывод", "write"]
                 ], this.validator), "TYPE");
         this.setPreviousStatement(!0, null);
         this.setNextStatement(!0, null);
@@ -377,8 +377,32 @@ Blockly.Blocks.classic_indicator = {
                 .setAlign(Blockly.ALIGN_RIGHT)
                 .appendField(new Blockly.FieldDropdown([
                     ["Вывод целого числа", "indicator_set"], 
-                    ["Вывод дробного числа", "indicator_set_float"],
-                ]), "NUM");
+                    ["Вывод дробного числа", "indicator_set_float"]
+                ], this.validator), "NUM");
+        } else if (value == "indicator_set_float") {
+            this.removeInput('VALUE', /* no error */ true);
+            this.appendValueInput("VALUE", ["Int", "Float", "Number", "unsigned int", "long", "double"])
+                .setAlign(Blockly.ALIGN_RIGHT)
+                .appendField(new Blockly.FieldDropdown([
+                    ["Вывод дробного", "indicator_set_float"],
+                    ["Вывод целого", "indicator_set"]
+                ], this.validator), "NUM")
+                .appendField("числа c")
+                .appendField(new Blockly.FieldDropdown([
+                    ["1", "1"], 
+                    ["2", "2"],
+                    ["3", "3"]
+                ], this.validator), "F")
+                .appendField("знаками после запятой");
+        } else if (value == "indicator_set") {
+            this.removeInput('VALUE', /* no error */ true);
+            this.appendValueInput("VALUE", ["Int", "Float", "Number", "unsigned int", "long", "double"])
+                .setAlign(Blockly.ALIGN_RIGHT)
+                .appendField(new Blockly.FieldDropdown([
+                    ["Вывод целого", "indicator_set"],
+                    ["Вывод дробного", "indicator_set_float"]
+                ], this.validator), "NUM")
+                .appendField("числа");
         }
     }
 };

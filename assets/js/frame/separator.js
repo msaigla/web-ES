@@ -16,6 +16,7 @@ $('.separator').on('mousedown', function(e) {
         });
         if ($("#codeArduino").width() < 250) {
             $("#code-scale-div").hide();
+            $("#copy-button").hide();
             if ($("#codeArduino").width() < 150) {
                 $("#codeArduino").hide();
             } else {
@@ -23,6 +24,7 @@ $('.separator').on('mousedown', function(e) {
             }
         } else {
             $("#code-scale-div").show();
+            $("#copy-button").show();
             $("#codeArduino").show();
         }
         console.log($("#resizeBlock").width())

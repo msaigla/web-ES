@@ -96,12 +96,12 @@ Blockly.Arduino.port_charecterDisplay = function (a) {
     } else if (TYPE == "text") {
         let LANG = a.getFieldValue("LANG");
         if (LANG == "ru") {
-            let TEXT = Blockly.Arduino.valueToCode(a, "TEXT", Blockly.Arduino.ORDER_ATOMIC) || "ok",
+            let TEXT = Blockly.Arduino.valueToCode(a, "TEXT", Blockly.Arduino.ORDER_ATOMIC) || "\"\"",
                 ROW = Blockly.Arduino.valueToCode(a, "ROW", Blockly.Arduino.ORDER_ATOMIC) || "1",
                 COL = Blockly.Arduino.valueToCode(a, "COL", Blockly.Arduino.ORDER_ATOMIC) || "1";
             return "OLED_evolvector.setCursor(" + COL + ", " + ROW + ");\nOLED_evolvector.outStr(" + TEXT + ");\n"
         } else if (LANG == "en") {
-            let TEXT = Blockly.Arduino.valueToCode(a, "TEXT", Blockly.Arduino.ORDER_ATOMIC) || "ok",
+            let TEXT = Blockly.Arduino.valueToCode(a, "TEXT", Blockly.Arduino.ORDER_ATOMIC) || "\"\"",
                 ROW = Blockly.Arduino.valueToCode(a, "ROW", Blockly.Arduino.ORDER_ATOMIC) || "1",
                 COL = Blockly.Arduino.valueToCode(a, "COL", Blockly.Arduino.ORDER_ATOMIC) || "1";
             return "OLED_evolvector.setCursor(" + COL + ", " + ROW + ");\nOLED_evolvector.print(" + TEXT + ");\n"
@@ -329,7 +329,7 @@ Blockly.Arduino.port_servo = function (a) {
            return FUNC_ROTATE;
         } else if (TYPE == "rotateWithoutTimer") {
             Blockly.Arduino.setups_["pinMode_output_" + SERVO] = "pinMode(" + SERVO + ", OUTPUT);";
-            let DO = '  angle_evolvector=map(angle, 0, 180, 550, 2400);\n  for (int count = 0; count<5; count++) {\n    digitalWrite(pin, HIGH);\n    delayMicroseconds(angle_evolvector);\n    digitalWrite(pin, LOW);\n    delayMicroseconds(21000 - angle_evolvector);\n  }\n'
+            let DO = '  angle_evolvector=map(angle_evolvector, 0, 180, 550, 2400);\n  for (int count = 0; count<5; count++) {\n    digitalWrite(pin, HIGH);\n    delayMicroseconds(angle_evolvector);\n    digitalWrite(pin, LOW);\n    delayMicroseconds(21000 - angle_evolvector);\n  }\n'
             Blockly.Arduino.definitions_["define_void_servo_set_evolvector"] = "void servo_set_evolvector(int pin, int angle_evolvector) {\n" + DO + "\n}\n"
             return "servo_set_evolvector(" + SERVO + ", " + ANGLE + ");\n"
         }

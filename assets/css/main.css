@@ -146,3 +146,7 @@ div.win-btn:active {
 .col {
     min-width: 0;
 }
+
+.form-select {
+    border-radius: 0;
+}

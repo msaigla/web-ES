@@ -83,12 +83,12 @@ Blockly.Arduino.classic_port_charecterDisplay = function (a) {
     } if (TYPE == "text") {
         let LANG = a.getFieldValue("LANG");
         if (LANG == "ru") {
-            let TEXT = Blockly.Arduino.valueToCode(a, "TEXT", Blockly.Arduino.ORDER_ATOMIC) || "",
+            let TEXT = Blockly.Arduino.valueToCode(a, "TEXT", Blockly.Arduino.ORDER_ATOMIC) || "\"\"",
                 ROW = Blockly.Arduino.valueToCode(a, "ROW", Blockly.Arduino.ORDER_ATOMIC) || "1",
                 COL = Blockly.Arduino.valueToCode(a, "COL", Blockly.Arduino.ORDER_ATOMIC) || "1";
             return "OLED_evolvector.setCursor(" + COL + ", " + ROW + ");\nOLED_evolvector.outStr(" + TEXT + ");\n"
         } else if (LANG == "en") {
-            let TEXT = Blockly.Arduino.valueToCode(a, "TEXT", Blockly.Arduino.ORDER_ATOMIC) || "",
+            let TEXT = Blockly.Arduino.valueToCode(a, "TEXT", Blockly.Arduino.ORDER_ATOMIC) || "\"\"",
                 ROW = Blockly.Arduino.valueToCode(a, "ROW", Blockly.Arduino.ORDER_ATOMIC) || "1",
                 COL = Blockly.Arduino.valueToCode(a, "COL", Blockly.Arduino.ORDER_ATOMIC) || "1";
             return "OLED_evolvector.setCursor(" + COL + ", " + ROW + ");\nOLED_evolvector.print(" + TEXT + ");\n"
@@ -116,11 +116,22 @@ Blockly.Arduino.classic_port_led = function (a) {
 };
 
 Blockly.Arduino.classic_port_ledRGB = function (a) {
-    let R = Blockly.Arduino.valueToCode(a, "R", Blockly.Arduino.ORDER_ATOMIC) || "1024",
-        G = Blockly.Arduino.valueToCode(a, "G", Blockly.Arduino.ORDER_ATOMIC) || "1024",
-        B = Blockly.Arduino.valueToCode(a, "B", Blockly.Arduino.ORDER_ATOMIC) || "1024";
+    let TYPE = a.getFieldValue("TYPE"),
+        HEX = Blockly.Arduino.valueToCode(a, "HEX", Blockly.Arduino.ORDER_ATOMIC) || "0b4A";;
     Blockly.Arduino.definitions_.define_RGBLightEV_h = "#include <RGBLightEV.h>\n";
-    return "color_set(" + R + ", " + G + ", " + B + ");\n"
+    if (!Blockly.Arduino.definitions_.variables.includes("RGBLightEV RGB_Evolvector=RGBLightEV();")) {
+        Blockly.Arduino.definitions_.variables = "RGBLightEV RGB_Evolvector=RGBLightEV();\n" +
+                                                Blockly.Arduino.definitions_.variables;
+    }
+    if (TYPE == "set_color") {
+        let R = Blockly.Arduino.valueToCode(a, "R", Blockly.Arduino.ORDER_ATOMIC) || "1024",
+            G = Blockly.Arduino.valueToCode(a, "G", Blockly.Arduino.ORDER_ATOMIC) || "1024",
+            B = Blockly.Arduino.valueToCode(a, "B", Blockly.Arduino.ORDER_ATOMIC) || "1024";
+        return "RGB_Evolvector.color_set(" + R + ", " + G + ", " + B + ");\n"
+    } else if (TYPE == "new_adress") {
+        let NEW_HEX = Blockly.Arduino.valueToCode(a, "NEW_HEX", Blockly.Arduino.ORDER_ATOMIC) || "0b4A";
+        return "RGB_Evolvector.newAdress(" + NEW_HEX + ");\n"
+    }
 };
 
 Blockly.Arduino.classic_port_flashlight = function (a) {
@@ -239,4 +250,8 @@ Blockly.Arduino.classic_port_RTC_set = function (a) {
     }
     Blockly.Arduino.definitions_.define_RTC_h="#include <Ev_RTC.h>";
     return "watch_evolvector.settime(" + SEC + "," + MIN + "," + HOUR + "," + DAY + "," + MONTH + "," + YEAR + "," + WEEK + ");\n"
+};
+
+Blockly.Arduino.classic_port_color = function (a) {
+    return null
 };

@@ -68,6 +68,11 @@ Blockly.Arduino.asset_timerPWM = function (a) {
 Blockly.Arduino.asset_timerPeriod = function (a) {
     let WAIT = Blockly.Arduino.valueToCode(a, "HZ", Blockly.Arduino.ORDER_UNARY_POSTFIX) || 1,
         TIMER = a.getFieldValue("TIMER");
+    if (TIMER === "Timer1") {
+        Blockly.Arduino.definitions_.define_TimerOne_h = "#include <TimerOne.h>";
+    } else {
+        Blockly.Arduino.definitions_.define_TimerThree_h = "#include <TimerThree.h>";
+    }
     return TIMER + ".setPeriod(1000000 / " + WAIT + " );"
 };
 Blockly.Arduino.assetMega_timerPeriod = function (a) {

@@ -229,23 +229,47 @@ Blockly.Blocks.classic_port_led = {
 };
 
 Blockly.Blocks.classic_port_ledRGB = {
+    validator: function(value) {
+        this.getSourceBlock().updateRGB(value);
+        return value;
+    },
     helpUrl: "", init: function () {
         this.setColour("#4682B4");
-        this.appendDummyInput()
+        this.appendValueInput("HEX", ["Int", "Float", "Number", "unsigned int", "long", "double", "unsigned char", "Char"])
             .appendField(new Blockly.FieldImage("assets/img/components/indicators/Светодиод RGB ВЭЛ10.136.png", 64, 40))
-            .appendField("RGB светодиод");
-        this.appendValueInput("R", ["Int", "Float", "Number", "unsigned int", "long", "double", "unsigned char", "Char"])
+            .appendField("RGB светодиод с адресом");
+        this.appendDummyInput()
             .setAlign(Blockly.ALIGN_RIGHT)
-            .appendField("Градация красного");
-        this.appendValueInput("G", ["Int", "Float", "Number", "unsigned int", "long", "double", "unsigned char", "Char"])
-            .setAlign(Blockly.ALIGN_RIGHT)
-            .appendField("Градация зеленого");
-        this.appendValueInput("B", ["Int", "Float", "Number", "unsigned int", "long", "double", "unsigned char", "Char"])
-            .setAlign(Blockly.ALIGN_RIGHT)
-            .appendField("Градация синего");
+            .appendField("Выполнить")
+            .appendField(new Blockly.FieldDropdown([
+                ["Установить цвет", "set_color"],
+                ["Изменение адреса", "new_adress"]
+            ], this.validator), "TYPE");
+        this.setInputsInline(false);
         this.setPreviousStatement(!0, null);
         this.setNextStatement(!0, null);
         this.setTooltip("Блок позволяет задать градации красного, зеленого и синего цветов с целью получения нужного итогового цвета свечения RGB светодиода. Градации задаются с помощью числа из диапазона от 0 до 255. Число 0 соответствует выключенному состоянию, а число 255 означает свечение с максимальной яркостью. Данные числа устанавливаются путем присоединения справа блока в виде числа или переменной следующих типов:  int, unsigned int, unsigned char.")
+    },
+    updateRGB: function(value) {
+        this.removeInput('R', /* no error */ true);
+        this.removeInput('G', /* no error */ true);
+        this.removeInput('B', /* no error */ true);
+        this.removeInput('NEW_HEX', /* no error */ true);
+        if (value == "set_color") {
+            this.appendValueInput("R", ["Int", "Float", "Number", "unsigned int", "long", "double", "unsigned char", "Char"])
+                .setAlign(Blockly.ALIGN_RIGHT)
+                .appendField("Градация красного");
+            this.appendValueInput("G", ["Int", "Float", "Number", "unsigned int", "long", "double", "unsigned char", "Char"])
+                .setAlign(Blockly.ALIGN_RIGHT)
+                .appendField("Градация зеленого");
+            this.appendValueInput("B", ["Int", "Float", "Number", "unsigned int", "long", "double", "unsigned char", "Char"])
+                .setAlign(Blockly.ALIGN_RIGHT)
+                .appendField("Градация синего");
+        } else if (value == "new_adress") {
+            this.appendValueInput("NEW_HEX", ["Int", "Float", "Number", "unsigned int", "long", "double", "unsigned char", "Char"])
+                .setAlign(Blockly.ALIGN_RIGHT)
+                .appendField("Новый адрес:");
+        }
     }
 };
 
@@ -547,5 +571,45 @@ Blockly.Blocks.classic_port_RTC_set = {
             null);
         this.setNextStatement(!0, null);
         this.setTooltip("Блок позволяет выполнить настройку модуля часов реального времени, а именно установить время и дату. С этой целью пишется отдельная программа с использованием данного блока с установленными в пазы значениями даты и времени. После загрузки в контроллер она производит настройку подключенного к нему модуля.")
+    }
+};
+
+Blockly.Blocks.classic_port_encoderInc = {
+    helpUrl: "", init: function () {
+        this.setColour("#4682B4");
+        this.appendValueInput("HEX", ["Int", "Float", "Number", "unsigned int", "long", "double", "unsigned char", "Char"])
+            .appendField(new Blockly.FieldImage("assets/img/components/sensors/Модуль энкодер инкрементальный.png", 64, 40))
+            .appendField("RGB светодиод с адресом");
+        this.setPreviousStatement(!0, null);
+        this.setNextStatement(!0, null);
+        this.setTooltip("Блок позволяет задать градации красного, зеленого и синего цветов с целью получения нужного итогового цвета свечения RGB светодиода. Градации задаются с помощью числа из диапазона от 0 до 255. Число 0 соответствует выключенному состоянию, а число 255 означает свечение с максимальной яркостью. Данные числа устанавливаются путем присоединения справа блока в виде числа или переменной следующих типов:  int, unsigned int, unsigned char.")
+    }
+};
+
+Blockly.Blocks.classic_port_color = {
+    validator: function(value) {
+        this.getSourceBlock().updateColor(value);
+        return value;
+    },
+    helpUrl: "", 
+    init: function () {
+        this.setColour("#4682B4");
+        this.appendValueInput("HEX", ["Int", "Float", "Number", "unsigned int", "long", "double", "unsigned char", "Char"])
+            .appendField(new Blockly.FieldImage("assets/img/components/sensors/Модуль датчик цвета.png", 64, 40))
+            .appendField("RGB светодиод с адресом")
+            .appendField(new Blockly.FieldDropdown([
+                ["1", "Timer1"], 
+                ["2", "Timer2"]
+            ], this.validator), "TIMER");
+        this.setOutput(!0, ["String"]);
+    },
+    updateColor: function(value) {
+        // this.removeInput(this.getSourceBlock().init(), true);
+        if (value == "Timer1") {
+            // this.setPreviousStatement(!0, null);
+            // this.setNextStatement(!0, null);
+        } else {
+            // elem = this.setOutput(!0, ["String"]);
+        }
     }
 };

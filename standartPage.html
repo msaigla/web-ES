@@ -36,6 +36,26 @@
                         </a>
                     </div>
                 </div>
+                <div class="col" style="text-align: center; max-width: 300px;"
+                        data-toggle="tooltip"
+                        data-placement="top"
+                        title="Доступно в desktop приложение!">
+                    <div class="input-group" role="group" aria-label="center">
+                        <select class="form-select" 
+                                data-toggle="tooltip"
+                                data-placement="top"
+                                title="Не доступно" disabled>
+                            <option selected>Последовательный порт</option>
+                        </select>
+                        <button class="btn btn-success"
+                                onclick="discard()"
+                                data-toggle="tooltip"
+                                data-placement="top"
+                                title="Не доступно" disabled>
+                            <i class="fas fa-play"></i>
+                        </button>
+                    </div>
+                </div>
                 <div class="col" style="text-align: right;">
                     <div class="btn-group" role="group" aria-label="right">
                         <button class="btn btn-danger"
@@ -59,7 +79,7 @@
                                 title="Сохранить">
                             <i class="fas fa-save"></i>
                         </button>
-                        <input type="file" id="load" style="display: none;"/>
+                        <input type="file" id="load" style="display: none;" accept=".xml, .evs"/>
                         <button class="btn btn-info"
                                 id="fakeload"
                                 data-toggle="tooltip"

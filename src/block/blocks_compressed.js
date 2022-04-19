@@ -1217,6 +1217,21 @@ profile["default"] = profile.classic;
     Blockly.Blocks.math = {};
     Blockly.Constants.Math = {};
     Blockly.Constants.Math.HUE = 230;
+    Blockly.Blocks.other_number_systems = {
+        helpUrl: "", init: function () {
+            this.setColour("230");
+            this.appendDummyInput()
+                .appendField(new Blockly.FieldDropdown([
+                    ["0x", "0x"], 
+                    ["0b", "0b"],
+                    ["0o", "0o"]
+                ]), "TYPE")
+                .appendField(new Blockly.FieldTextInput("00"), "NUMBER");
+            this.setInputsInline(true);
+            this.setOutput(!0, ["Int", "Float", "Number", "unsigned int", "long", "double", "Char", "unsigned char"]);
+            this.setTooltip("")
+        }
+    }
     Blockly.defineBlocksWithJsonArray([{
         type: "math_number",
         message0: "%1",

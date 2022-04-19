@@ -155,7 +155,7 @@ function save() {
     var fileName = window.prompt('Как бы вы хотели назвать свой файл?', 'Evolvector');
     if(fileName){
         var blob = new Blob([data], {type: 'text/xml'});
-        saveAs(blob, fileName + ".xml");
+        saveAs(blob, fileName + ".evs");
     } 
 }
 

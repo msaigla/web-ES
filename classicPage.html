@@ -36,6 +36,26 @@
                         </a>
                     </div>
                 </div>
+                <div class="col" style="text-align: center; max-width: 300px;"
+                        data-toggle="tooltip"
+                        data-placement="top"
+                        title="Доступно в desktop приложение!">
+                    <div class="input-group" role="group" aria-label="center">
+                        <select class="form-select" 
+                                data-toggle="tooltip"
+                                data-placement="top"
+                                title="Не доступно" disabled>
+                            <option selected>Последовательный порт</option>
+                        </select>
+                        <button class="btn btn-success"
+                                onclick="discard()"
+                                data-toggle="tooltip"
+                                data-placement="top"
+                                title="Не доступно" disabled>
+                            <i class="fas fa-play"></i>
+                        </button>
+                    </div>
+                </div>
                 <div class="col" style="text-align: right;">
                     <div class="btn-group" role="group" aria-label="right">
                         <button class="btn btn-danger"
@@ -59,7 +79,7 @@
                                 title="Сохранить">
                             <i class="fas fa-save"></i>
                         </button>
-                        <input type="file" id="load" style="display: none;"/>
+                        <input type="file" id="load" style="display: none;" accept=".xml, .evs"/>
                         <button class="btn btn-info"
                                 id="fakeload"
                                 data-toggle="tooltip"
@@ -99,6 +119,16 @@
                                 <input id="code-scale" type="number" min="30" max="300" class="form-control" value="100"></input>
                                 <span class="input-group-text">%</span>
                             </div>
+                            <a type="button" id="copy-button" onclick="copyButton(Blockly.Arduino.workspaceToCode(workspace))" class="btn btn-outline-primary position-absolute"
+                                onclick="discard()"
+                                data-toggle="tooltip"
+                                data-placement="top"
+                                title="Скопировать код"
+                                style="z-index: 3;
+                                        right: 20px;
+                                        bottom: 20px;">
+                                <i class="fas fa-copy"></i>
+                            </a>
                             <div id="codeArduino" class="row position-relative">
                                 <div class="col linesNum scrollNumV"></div>
                                 <div class="col scrollH scrollV">
@@ -139,6 +169,7 @@
             <field name="NUM">
             </field>
         </block>
+        <block type="other_number_systems"></block>
         <block type="math_arithmetic"></block>
         <block type="math_single"></block>
         <block type="math_trig"></block>
@@ -245,7 +276,7 @@
     </category>
     <sep></sep>
     <category name="Входы/Выходы" colour="#964b00">
-        <block type="inout_initBasis"></block>
+        <!-- <block type="inout_initBasis"></block> -->
         <block type="inout_highlow"></block>
         <!-- <block type="inout_pinsDigital"></block>
         <block type="inout_pinsAnalog"></block>
@@ -289,6 +320,8 @@
         <block type="classic_port_ir_read"></block>
         <block type="classic_port_potentiometer"></block>
         <block type="classic_sonic"></block>
+        <block type="classic_port_encoderInc"></block>
+        <block type="classic_port_color"></block>
     </category>
     <category name="Драйверы" colour="#4682B4">
         <block type="classic_L298N"></block>
@@ -300,7 +333,13 @@
         <block type="classic_port_charecterDisplay"></block>
         <block type="classic_indicator"></block>
         <block type="classic_port_led"></block>
-        <block type="classic_port_ledRGB"></block>
+        <block type="classic_port_ledRGB">
+            <value name="HEX">
+                <block type="other_number_systems">
+                    <field name="NUMBER">4A</field>
+                </block>
+            </value>
+        </block>
         <block type="classic_port_flashlight"></block>
     </category>
     <category name="Звук" colour="#4682B4">

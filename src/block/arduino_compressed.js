@@ -141,6 +141,11 @@ var define_var = ["\n"];
     };
 
     Blockly.Arduino.finish = function (a) {
+        let pinsDefault = "";
+        if (generator["default"] === generator.classic) {
+            Blockly.Arduino.definitions_.define_servo="#include <controlAllPins.h>\n";
+            pinsDefault = "pinsDefault();\n"
+        }
         a = "  " + a.replace(/\n/g, "\n  ");
         a = a.replace(/\n\s+$/, "\n");
         a = "void loop() {\n" + a + "\n}";
@@ -150,10 +155,6 @@ var define_var = ["\n"];
             e.match(/^#include/) ? b.push(e) : c.push(e)
         }
         e = [];
-        let pinsDefault = "";
-        if (Blockly.Arduino.setups_["setup_initBasis"] !== undefined) {
-            pinsDefault = "pinsDefault();\n"
-        }
         let dv = define_var;
         define_var = ["\n"]
         for (d in Blockly.Arduino.setups_) e.push(Blockly.Arduino.setups_[d]);
@@ -453,11 +454,11 @@ var define_var = ["\n"];
             b = Blockly.Arduino.valueToCode(this, "DMAX", Blockly.Arduino.ORDER_ATOMIC);
         return ["map(" + a + ", 0, 1024, 0, " + b + ")", Blockly.Arduino.ORDER_NONE]
     };
-    Blockly.Arduino.inout_initBasis = function () {
-        Blockly.Arduino.definitions_.define_servo="#include <controlAllPins.h>\n";
-        Blockly.Arduino.setups_["setup_initBasis"] = "";
-        return ""
-    };
+    // Blockly.Arduino.inout_initBasis = function () {
+    //     Blockly.Arduino.definitions_.define_servo="#include <controlAllPins.h>\n";
+    //     Blockly.Arduino.setups_["setup_initBasis"] = "";
+    //     return ""
+    // };
 
     Blockly.Arduino.servo_read_degrees = function() {
         var a=this.getFieldValue("PIN");
@@ -628,6 +629,11 @@ var define_var = ["\n"];
         return "continue;\n";
     }
     Blockly.Arduino.math = {};
+    Blockly.Arduino.other_number_systems = function (a) {
+        let NUMBER = a.getFieldValue("NUMBER"),
+            TYPE = a.getFieldValue("TYPE");
+        return [TYPE + NUMBER, Blockly.Arduino.ORDER_ATOMIC]
+    };
     Blockly.Arduino.math_number = function (a) {
         a = Number(a.getFieldValue("NUM"));
         return [a, 0 <= a ? Blockly.Arduino.ORDER_ATOMIC : Blockly.Arduino.ORDER_UNARY_NEGATION]

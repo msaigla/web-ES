@@ -69,3 +69,9 @@ $(window).on('resize', function(){
         $("#codeArduino").show();
     }
 });
+
+function copyButton(id_code) {
+    code = id_code;
+    navigator.clipboard.writeText(code)
+    // copyToClipboard(document.getElementById(id_code));
+};

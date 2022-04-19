@@ -190,9 +190,15 @@ Blockly.Arduino.classic_indicator = function (a) {
         Blockly.Arduino.setups_["setup_IndicatorPinEV"] = "IndicatorPinEV(" + TIMER + ", " + A + ", " + F + ", " + B + ", " + G + ", " + C + ", " + D + ", " + E + ", " + DP + ", " + DIG1 + ", " + DIG2 + ", " + DIG3 + ", " + DIG4 + ");\n";
         return ""
     } else if (TYPE == "write") {
-        let VALUE = Blockly.Arduino.valueToCode(a, "VALUE", Blockly.Arduino.ORDER_UNARY_POSTFIX) || "0";
-        return a.getFieldValue("NUM") + "(" + VALUE + ");\n"
-    }
+        let VALUE = Blockly.Arduino.valueToCode(a, "VALUE", Blockly.Arduino.ORDER_UNARY_POSTFIX) || "0",
+            NUM = a.getFieldValue("NUM");
+        if (NUM == "indicator_set_float") {
+            let F = a.getFieldValue("F");
+            return NUM + "(" + VALUE + ", " + F + ");\n"
+        } else {
+            return NUM + "(" + VALUE + ");\n"
+        }
+    } 
     return ""
 };
 
@@ -240,7 +246,7 @@ Blockly.Arduino.classic_servo = function (a) {
             return FUNC_ROTATE;
         } else if (TYPE == "rotateWithoutTimer") {
             Blockly.Arduino.setups_["setup_button_" + SERVO] = "pinMode(" + SERVO + ", OUTPUT);";
-            let DO = '  angle_evolvector=map(angle, 0, 180, 550, 2400);\n  for (int count = 0; count<5; count++) {\n    digitalWrite(pin, HIGH);\n    delayMicroseconds(angle_evolvector);\n    digitalWrite(pin, LOW);\n    delayMicroseconds(21000 - angle_evolvector);\n  }\n'
+            let DO = '  angle_evolvector=map(angle_evolvector, 0, 180, 550, 2400);\n  for (int count = 0; count<5; count++) {\n    digitalWrite(pin, HIGH);\n    delayMicroseconds(angle_evolvector);\n    digitalWrite(pin, LOW);\n    delayMicroseconds(21000 - angle_evolvector);\n  }\n'
             Blockly.Arduino.definitions_["define_void_servo_set_evolvector"] = "void servo_set_evolvector(int pin, int angle_evolvector) {\n" + DO + "\n}\n"
             return "servo_set_evolvector(" + SERVO + ", " + ANGLE + ");\n"
         }
